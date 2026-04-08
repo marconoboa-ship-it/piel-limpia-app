@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portal Clínico Piel Limpia - Ingreso</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f8fafb",
+                    "on-surface": "#191c1d",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-surface-variant": "#3d4943",
+                    "outline": "#6d7a72",
+                    "outline-variant": "#bccac1",
+                    "primary": "#006c4d",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#3eb489",
+                    "primary-fixed": "#86f8c8",
+                    "secondary-fixed": "#cee5ff"
+            },
+            "fontFamily": {
+                    "headline": ["Inter", "sans-serif"],
+                    "body": ["Inter", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-login-gradient {
+            background: linear-gradient(135deg, #006c4d 0%, #3eb489 100%);
+        }
+        .animate-spin-slow {
+            animation: spin 2s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<main class="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden">
+<div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary-fixed/20 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[30%] h-[30%] bg-secondary-fixed/30 rounded-full blur-[100px]"></div>
+
+<div class="w-full max-w-md z-10">
+<div class="bg-surface-container-lowest shadow-[0_20px_40px_rgba(25,28,29,0.05)] rounded-xl p-8 md:p-12 border border-outline-variant/10">
+<div class="flex flex-col items-center mb-10">
+<div class="w-24 h-24 bg-white rounded-xl flex items-center justify-center mb-6 overflow-hidden shadow-sm border border-outline-variant/20">
+    <span class="material-symbols-outlined text-5xl text-primary">spa</span>
+</div>
+<h1 class="text-on-surface font-headline text-2xl font-extrabold tracking-tighter text-center">
+                        Portal Clínico Piel Limpia
+                    </h1>
+<p class="text-on-surface-variant text-sm mt-2 font-medium opacity-70">Excelencia en Salud Dermatológica</p>
+</div>
+
+<form id="login-form" class="space-y-6">
+<div class="space-y-2">
+<label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant px-1" for="email">Correo Electrónico</label>
+<div class="relative">
+<input class="w-full px-5 py-4 bg-surface-container-highest border-none rounded-xl text-on-surface placeholder:text-outline focus:bg-surface-container-lowest focus:ring-0 focus:border-b-2 focus:border-primary transition-all duration-300" id="email" placeholder="ejemplo@correo.com" type="email" required/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline opacity-50">mail</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant px-1" for="password">Contraseña</label>
+<div class="relative">
+<input class="w-full px-5 py-4 bg-surface-container-highest border-none rounded-xl text-on-surface placeholder:text-outline focus:bg-surface-container-lowest focus:ring-0 focus:border-b-2 focus:border-primary transition-all duration-300" id="password" placeholder="••••••••" type="password" required/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline opacity-50">lock</span>
+</div>
+</div>
+<div id="error-message" class="hidden text-red-600 text-xs font-semibold text-center mt-2 bg-red-50 p-2 rounded-lg"></div>
+
+<div class="pt-4">
+<button id="submit-btn" class="w-full bg-login-gradient text-on-primary py-4 px-6 rounded-full font-bold text-sm tracking-wide shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 group" type="submit">
+                            Ingresar a mi Tratamiento
+                            <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</form>
+
+<div class="mt-8 text-center">
+<a class="text-primary font-medium text-sm hover:underline underline-offset-4 transition-all opacity-80 hover:opacity-100" href="#">
+                        ¿Olvidaste tu contraseña?
+                    </a>
+</div>
+</div>
+<div class="mt-8 flex flex-col items-center gap-4 opacity-60">
+<div class="flex items-center gap-2 text-xs font-medium text-on-surface-variant uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+                    Acceso Seguro y Encriptado
+                </div>
+</div>
+</div>
+</main>
+
+<script type="module">
+    // 1. Importar las herramientas de Firebase desde internet
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+    // 2. Tu Llave Maestra (Conectando a tu proyecto)
+    const firebaseConfig = {
+      apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
+      authDomain: "portal-piel-limpia.firebaseapp.com",
+      projectId: "portal-piel-limpia",
+      storageBucket: "portal-piel-limpia.firebasestorage.app",
+      messagingSenderId: "398053436634",
+      appId: "1:398053436634:web:08d83ef125b0f8080009e3"
+    };
+
+    // 3. Inicializar el motor
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // 4. Capturar los elementos de la pantalla
+    const loginForm = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('submit-btn');
+    const errorMessage = document.getElementById('error-message');
+
+    // 5. La Acción: Qué pasa cuando el usuario hace clic
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Evita que la página se recargue sola
+
+        // Diseño visual: mostrar estado de carga
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.innerHTML = 'Verificando... <span class="material-symbols-outlined animate-spin-slow">autorenew</span>';
+        submitBtn.disabled = true;
+        errorMessage.classList.add('hidden'); // Ocultar errores previos
+
+        // El viaje a la bóveda
+        signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+            .then((userCredential) => {
+                // ¡Éxito! El guardia lo dejó pasar
+                const user = userCredential.user;
+                submitBtn.innerHTML = '¡Acceso Concedido! <span class="material-symbols-outlined">check_circle</span>';
+                submitBtn.classList.replace('bg-login-gradient', 'bg-green-600');
+                
+                // Aquí es donde en el futuro lo mandaremos al DashboardLite
+                setTimeout(() => {
+                    alert("¡Bienvenido! Pronto serás redirigido a tu Dashboard de 21 Días.");
+                    window.location.href = "DashboardLite.html"; 
+                }, 1000);
+            })
+            .catch((error) => {
+                // ¡Error! Contraseña incorrecta o correo no existe
+                errorMessage.textContent = "Acceso denegado: Verifica que tu correo y contraseña sean correctos.";
+                errorMessage.classList.remove('hidden');
+                
+                // Devolver el botón a la normalidad
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            });
+    });
+</script>
+</body></html>

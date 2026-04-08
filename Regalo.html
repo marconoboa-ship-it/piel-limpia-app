@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>¡Felicidades! Tu Regalo | Piel Limpia</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: "#1b6d24", surface: "#fffbf0" },
+                    fontFamily: { headline: ["Manrope"], body: ["Inter"] }
+                }
+            }
+        }
+    </script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+</style>
+</head>
+<body class="bg-surface font-body text-slate-800 antialiased min-h-screen flex flex-col items-center justify-center p-6">
+
+<div id="content-container" class="max-w-md w-full bg-white rounded-3xl shadow-xl border border-amber-100 p-8 text-center relative overflow-hidden hidden">
+    <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-100 rounded-full blur-3xl opacity-50"></div>
+    <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-green-100 rounded-full blur-3xl opacity-50"></div>
+
+    <div class="relative z-10">
+        <span class="material-symbols-outlined text-6xl text-amber-500 mb-4 drop-shadow-md">workspace_premium</span>
+        
+        <h1 class="font-headline font-extrabold text-3xl mb-2 text-slate-900">¡Reto Superado!</h1>
+        <p class="text-sm text-slate-500 mb-6 font-medium">Has completado tu hito con constancia perfecta. Aquí tienes tu recompensa.</p>
+        
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-8">
+            <span id="regalo-icono" class="material-symbols-outlined text-4xl text-amber-600 mb-2">auto_stories</span>
+            <h2 id="regalo-titulo" class="font-bold text-lg text-amber-900 mb-1">Cargando...</h2>
+            <p id="regalo-desc" class="text-xs text-amber-700/80">Cargando la información de tu premio...</p>
+        </div>
+
+        <a id="btn-descarga" href="#" target="_blank" class="gold-gradient w-full block py-4 rounded-xl text-white font-black tracking-widest text-xs uppercase shadow-lg shadow-amber-500/30 hover:scale-105 transition-transform mb-4">
+            Descargar Material
+        </a>
+
+        <a href="DashboardLite.html" class="block w-full py-3 text-slate-400 hover:text-slate-600 text-xs font-bold tracking-widest uppercase transition-colors">
+            Volver a mi progreso
+        </a>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
+      authDomain: "portal-piel-limpia.firebaseapp.com",
+      projectId: "portal-piel-limpia",
+      storageBucket: "portal-piel-limpia.firebasestorage.app",
+      messagingSenderId: "398053436634",
+      appId: "1:398053436634:web:08d83ef125b0f8080009e3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+        // 1. Validar que el usuario esté logueado
+        if (!user) {
+            window.location.href = "Login.html";
+            return;
+        }
+
+        // 2. Validar que el reto esté completado (Seguridad LocalStorage)
+        const retoStatus = localStorage.getItem('reto_completado');
+        const nivelRegalo = localStorage.getItem('regalo_nivel'); // Puede ser "7", "14" o "21"
+
+        if (retoStatus !== 'true' || !nivelRegalo) {
+            alert("Acceso denegado: Aún no has completado las tareas necesarias para ver esta página.");
+            window.location.href = "DashboardLite.html";
+        } else {
+            // Lógica para mostrar el premio correcto según el nivel
+            const tituloEl = document.getElementById('regalo-titulo');
+            const descEl = document.getElementById('regalo-desc');
+            const iconoEl = document.getElementById('regalo-icono');
+            const btnDescarga = document.getElementById('btn-descarga');
+
+            if (nivelRegalo === "7") {
+                tituloEl.textContent = "Guía de Maquillaje Seguro";
+                descEl.textContent = "Descubre qué marcas y productos usar sin tapar tus poros ni inflamar tu piel. (Valor: $19 - Gratis para ti).";
+                iconoEl.textContent = "auto_stories";
+                btnDescarga.textContent = "Descargar PDF Ahora";
+            } else if (nivelRegalo === "14") {
+                tituloEl.textContent = "Recetario de Batidos Detox";
+                descEl.textContent = "Recetas comprobadas para limpiar tu hígado y acelerar la regeneración de tu piel desde adentro.";
+                iconoEl.textContent = "blender";
+                btnDescarga.textContent = "Descargar Recetario";
+            } else if (nivelRegalo === "21") {
+                tituloEl.textContent = "Masterclass: Piel Eterna";
+                descEl.textContent = "Felicidades por terminar los 21 días. Aquí tienes el acceso a tu clase en video para mantener los resultados.";
+                iconoEl.textContent = "play_circle";
+                btnDescarga.textContent = "Ver Masterclass";
+            }
+
+            // Si todo está bien, mostramos el contenido de la página
+            document.getElementById('content-container').classList.remove('hidden');
+        }
+    });
+</script>
+</body></html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Premium Upgrade | Piel Limpia</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#1c6090",
+                    "surface": "#f8fafb",
+                    "on-surface": "#191c1d",
+                    "tertiary": "#735c00"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .satin-gradient { background: linear-gradient(135deg, #1c6090 0%, #3c79ab 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+
+<div id="loader" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
+    <span class="material-symbols-outlined animate-spin text-primary text-5xl">autorenew</span>
+</div>
+
+<header class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl flex justify-between items-center px-6 h-16 border-b border-slate-100">
+<div class="flex items-center gap-4">
+    <a href="DashboardLite.html" class="material-symbols-outlined text-slate-600 hover:text-primary transition-colors">arrow_back</a>
+    <h1 class="text-sm font-bold tracking-widest uppercase font-headline">Piel Limpia Premium</h1>
+</div>
+<span class="material-symbols-outlined text-slate-400">lock</span>
+</header>
+
+<main class="pt-24 pb-32 px-6 max-w-4xl mx-auto min-h-screen flex flex-col items-center">
+<div class="flex flex-col items-center text-center mb-12">
+<div class="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-6 relative">
+    <span class="material-symbols-outlined text-5xl text-primary" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<h2 class="text-3xl md:text-4xl font-extrabold text-on-surface font-headline tracking-tight leading-tight mb-4">
+    Desbloquea tu <span class="text-primary italic">Sanación Definitiva</span>
+</h2>
+<p class="text-slate-600 max-w-md text-sm leading-relaxed">
+    Accede a protocolos exclusivos y asesoría para una transformación total.
+</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-12">
+    <div class="bg-white rounded-xl p-6 border border-slate-100 shadow-sm flex flex-col gap-3">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary">restaurant_menu</span>
+            <h4 class="font-headline font-bold text-lg">Recetario Completo</h4>
+        </div>
+        <p class="text-slate-500 text-xs leading-relaxed">Menús anti-inflamatorios diseñados para limpiar tu piel desde la primera semana.</p>
+    </div>
+    <div class="bg-white rounded-xl p-6 border border-slate-100 shadow-sm flex flex-col gap-3">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary">group</span>
+            <h4 class="font-headline font-bold text-lg">Grupo de Apoyo</h4>
+        </div>
+        <p class="text-slate-500 text-xs leading-relaxed">Acceso a nuestra comunidad privada para resolver dudas en tiempo real.</p>
+    </div>
+</div>
+
+<div class="w-full max-w-sm">
+    <a href="https://pay.hotmart.com/TU_CODIGO_AQUI" target="_blank" class="satin-gradient w-full py-5 rounded-xl text-white font-headline font-bold text-lg shadow-lg hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-3 no-underline">
+        <span>Hacerme Premium Ahora</span>
+        <span class="material-symbols-outlined">arrow_forward</span>
+    </a>
+    <p class="text-center text-[10px] text-slate-400 mt-4 uppercase tracking-widest font-medium">
+        Pago único. Acceso de por vida a las actualizaciones.
+    </p>
+</div>
+</main>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
+      authDomain: "portal-piel-limpia.firebaseapp.com",
+      projectId: "portal-piel-limpia",
+      storageBucket: "portal-piel-limpia.firebasestorage.app",
+      messagingSenderId: "398053436634",
+      appId: "1:398053436634:web:08d83ef125b0f8080009e3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Seguridad: Solo usuarios registrados ven esta oferta
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById('loader').classList.add('hidden');
+        } else {
+            window.location.href = "Login.html";
+        }
+    });
+</script>
+</body></html>

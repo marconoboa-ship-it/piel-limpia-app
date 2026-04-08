@@ -9,18 +9,7 @@
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "primary": "#1b6d24",
-                        "primary-container": "#a3f69c",
-                        "on-primary-container": "#065f18",
-                        "surface": "#f4f7f5",
-                        "on-surface": "#2d3435",
-                        "outline": "#757c7d"
-                    }
-                },
-            },
+            theme: { extend: { colors: { "primary": "#1b6d24", "primary-container": "#a3f69c", "on-primary-container": "#065f18", "surface": "#f4f7f5", "on-surface": "#2d3435" } } }
         }
     </script>
 <style>
@@ -28,14 +17,7 @@
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
-    @media (min-width: 1024px) {
-        .main-grid {
-            display: grid;
-            grid-template-columns: 280px 1fr 300px;
-            gap: 2rem;
-            align-items: start;
-        }
-    }
+    @media (min-width: 1024px) { .main-grid { display: grid; grid-template-columns: 280px 1fr 300px; gap: 2rem; align-items: start; } }
 </style>
 </head>
 <body class="bg-surface font-body text-on-surface antialiased">
@@ -43,7 +25,7 @@
 <div id="loader" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
     <div class="flex flex-col items-center gap-4">
         <span class="material-symbols-outlined animate-spin text-primary text-5xl">autorenew</span>
-        <p class="text-xs font-bold tracking-widest text-primary uppercase">Cargando tu Portal...</p>
+        <p class="text-xs font-bold tracking-widest text-primary uppercase">Sincronizando con la nube...</p>
     </div>
 </div>
 
@@ -54,26 +36,20 @@
     </div>
     <div class="flex items-center gap-4">
         <span id="user-email" class="text-xs font-medium text-slate-500 hidden md:block"></span>
-        <a href="Paywall.html" class="px-4 py-2 bg-primary-container text-on-primary-container rounded-lg text-[10px] font-black tracking-widest no-underline hover:brightness-95 transition-all shadow-sm">UPGRADE PREMIUM</a>
+        <a href="Paywall.html" class="px-4 py-2 bg-primary-container text-on-primary-container rounded-lg text-[10px] font-black tracking-widest no-underline shadow-sm">UPGRADE PREMIUM</a>
     </div>
 </header>
 
 <div class="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
     <div class="main-grid">
-        
         <aside class="order-2 lg:order-1">
             <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
                 <h3 class="text-[10px] font-black tracking-widest text-slate-400 uppercase mb-4">Calendario 21 Días</h3>
-                <div class="flex lg:grid lg:grid-cols-4 gap-2 overflow-x-auto lg:overflow-visible hide-scrollbar pb-2">
+                <div class="flex lg:grid lg:grid-cols-4 gap-2 overflow-x-auto lg:overflow-visible">
                     <script>
                         for(let i=1; i<=21; i++) {
-                            // Por defecto marcamos los primeros 7 como "pasados" visualmente
                             const activeClass = i <= 7 ? 'bg-primary text-white shadow-lg' : 'bg-slate-50 text-slate-400 border border-slate-100';
-                            document.write(`
-                                <div class="flex-shrink-0 w-12 h-12 lg:w-full lg:h-12 flex items-center justify-center rounded-xl font-bold text-sm ${activeClass}">
-                                    ${i}
-                                </div>
-                            `);
+                            document.write(`<div class="flex-shrink-0 w-12 h-12 lg:w-full lg:h-12 flex items-center justify-center rounded-xl font-bold text-sm ${activeClass}">${i}</div>`);
                         }
                     </script>
                 </div>
@@ -83,9 +59,8 @@
         <main class="order-1 lg:order-2 space-y-6">
             <section class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center relative overflow-hidden">
                 <div id="reward-badge" class="absolute top-4 right-4 bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-[10px] font-black tracking-widest flex items-center gap-1">
-                    <span class="material-symbols-outlined text-sm">redeem</span> RECOMPENSA DE SEMANA
+                    <span class="material-symbols-outlined text-sm">redeem</span> RECOMPENSA ACTIVA
                 </div>
-
                 <div class="relative flex items-center justify-center">
                     <svg class="w-44 h-44 transform -rotate-90">
                         <circle class="text-slate-100" cx="88" cy="88" fill="transparent" r="80" stroke="currentColor" stroke-width="10"></circle>
@@ -93,88 +68,46 @@
                     </svg>
                     <div class="absolute flex flex-col items-center">
                         <span id="progress-text" class="font-headline font-black text-5xl text-on-surface">0%</span>
-                        <span id="label-dia" class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Día X</span>
+                        <span id="label-dia" class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Día 7</span>
                     </div>
                 </div>
-                <h2 id="titulo-dia" class="mt-6 font-headline font-extrabold text-2xl text-center">¡Casi llegas a tu próximo hito!</h2>
+                <h2 id="titulo-dia" class="mt-6 font-headline font-extrabold text-2xl text-center">¡Casi llegas a tu hito!</h2>
                 
                 <div id="final-reward-card" class="mt-8 w-full bg-slate-50 rounded-3xl p-6 border-2 border-dashed border-slate-200 flex flex-col items-center text-center opacity-60 grayscale transition-all duration-700">
-                    <div class="bg-white w-16 h-16 rounded-full shadow-inner flex items-center justify-center mb-4">
-                        <span id="gift-icon" class="material-symbols-outlined text-4xl text-slate-300">lock</span>
-                    </div>
+                    <div class="bg-white w-16 h-16 rounded-full shadow-inner flex items-center justify-center mb-4"><span id="gift-icon" class="material-symbols-outlined text-4xl text-slate-300">lock</span></div>
                     <div class="w-full">
-                        <h4 id="reward-week-label" class="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-1">Semana X</h4>
-                        <h3 id="reward-title" class="font-headline font-bold text-lg text-slate-800 mb-2">Título del Regalo</h3>
-                        <p id="reward-desc" class="text-[11px] text-slate-500 mb-4 px-4">Descripción del regalo.</p>
-                        
-                        <button id="btn-regalo" onclick="validarYEntrar()" class="hidden w-full gold-gradient py-4 rounded-2xl text-white font-black tracking-widest text-[10px] uppercase shadow-xl hover:scale-[1.02] transition-all">
-                            Reclamar Mi Regalo
-                        </button>
+                        <h4 id="reward-week-label" class="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-1">Semana 1</h4>
+                        <h3 id="reward-title" class="font-headline font-bold text-lg text-slate-800 mb-2">Cargando meta...</h3>
+                        <p id="reward-desc" class="text-[11px] text-slate-500 mb-4 px-4 italic">Completa tus rutinas para desbloquear.</p>
+                        <button id="btn-regalo" onclick="validarYEntrar()" class="hidden w-full gold-gradient py-4 rounded-2xl text-white font-black tracking-widest text-[10px] uppercase shadow-xl hover:scale-105 transition-all">Reclamar Premio</button>
                     </div>
                 </div>
             </section>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <article class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">light_mode</span>
-                        <h3 class="font-bold">Rutina Mañana</h3>
-                    </div>
+                    <div class="flex items-center gap-3 mb-6"><span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">light_mode</span><h3 class="font-bold text-sm uppercase tracking-tighter">Rutina Mañana</h3></div>
                     <div class="space-y-3">
-                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100 transition-all">
-                            <input class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/>
-                            <span class="text-sm font-medium">Limpieza Gel No-Comedogénico</span>
-                        </label>
-                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100 transition-all">
-                            <input class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/>
-                            <span class="text-sm font-medium">Protector Solar FPS 50+</span>
-                        </label>
+                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_m1" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Limpieza Gel No-Comedogénico</span></label>
+                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_m2" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Protector Solar FPS 50+</span></label>
                     </div>
                 </article>
-
                 <article class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">spa</span>
-                        <h3 class="font-bold">Hábitos Saludables</h3>
-                    </div>
+                    <div class="flex items-center gap-3 mb-6"><span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">spa</span><h3 class="font-bold text-sm uppercase tracking-tighter">Hábitos Saludables</h3></div>
                     <div class="space-y-3">
-                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100 transition-all">
-                            <input class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/>
-                            <span class="text-sm font-medium">Dieta Antiinflamatoria</span>
-                        </label>
-                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100 transition-all">
-                            <input class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/>
-                            <span class="text-sm font-medium">Sanitizar Smartphone</span>
-                        </label>
+                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_h1" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Dieta Antiinflamatoria</span></label>
+                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_h2" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Sanitizar Smartphone</span></label>
                     </div>
                 </article>
             </div>
         </main>
-
-        <aside class="hidden lg:block order-3 space-y-4">
-            <div class="bg-primary p-6 rounded-3xl text-white shadow-xl relative overflow-hidden">
-                <span class="material-symbols-outlined text-4xl mb-4 opacity-50">tips_and_updates</span>
-                <h4 class="font-bold text-lg mb-2">Consejo Clínico</h4>
-                <p class="text-white/80 text-xs leading-relaxed italic">"La constancia vence a la genética. Sigue tu protocolo y verás cómo la inflamación cede semana a semana."</p>
-            </div>
-            <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
-                <h4 class="font-bold text-xs mb-4 uppercase tracking-widest text-slate-400">Atención Personalizada</h4>
-                <p class="text-xs text-slate-500 mb-6">¿Brotes inesperados? Desbloquea el chat directo con especialistas.</p>
-                <a href="Paywall.html" class="block w-full py-3 bg-slate-900 text-white text-center rounded-xl text-[10px] font-black tracking-widest no-underline hover:bg-black transition-colors shadow-md">ACCESO PREMIUM VIP</a>
-            </div>
-        </aside>
     </div>
 </div>
 
-<nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white border-t border-slate-200 z-50">
-    <a href="#" class="flex flex-col items-center text-primary"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span><span class="text-[9px] font-bold uppercase mt-1">Inicio</span></a>
-    <a href="#" class="flex flex-col items-center text-slate-400"><span class="material-symbols-outlined">analytics</span><span class="text-[9px] font-bold uppercase mt-1">Progreso</span></a>
-    <button id="logout-btn-mobile" class="flex flex-col items-center text-slate-400"><span class="material-symbols-outlined">logout</span><span class="text-[9px] font-bold uppercase mt-1">Salir</span></button>
-</nav>
-
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
@@ -187,82 +120,84 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            document.getElementById('user-email').textContent = user.email;
-            document.getElementById('loader').classList.add('hidden');
-        } else {
-            window.location.href = "Login.html"; 
-        }
-    });
-
-    // --- LÓGICA DE FASES Y RETOS ---
-    // Cambia este número a 7, 14 o 21 para probar las distintas fases
-    const diaActual = 7; 
-
+    const diaActual = 7;
     const recompensas = {
-        7: { titulo: "Guía de Maquillaje Seguro", desc: "Evita productos que obstruyen tus poros. Completa el 100% de hoy para desbloquear.", week: "Hito: Semana 1" },
-        14: { titulo: "Recetario Batidos Detox", desc: "Limpia tu hígado para una piel radiante. Completa el 100% de hoy para desbloquear.", week: "Hito: Semana 2" },
-        21: { titulo: "Masterclass: Piel Eterna", desc: "Mantén tus resultados para siempre. Completa tu último día para acceder.", week: "Hito Final: Semana 3" }
+        7: { titulo: "Guía de Maquillaje Seguro", desc: "Evita productos que obstruyen tus poros.", week: "Semana 1" },
+        14: { titulo: "Recetario Batidos Detox", desc: "Limpia tu hígado para sanar tu piel.", week: "Semana 2" },
+        21: { titulo: "Masterclass: Piel Eterna", desc: "Mantén tus resultados para siempre.", week: "Final" }
     };
 
-    // Actualizamos los textos de la interfaz según el día actual
-    document.getElementById('label-dia').textContent = `Día ${diaActual}`;
-    document.getElementById('reward-week-label').textContent = recompensas[diaActual].week;
-    document.getElementById('reward-title').textContent = recompensas[diaActual].titulo;
-    document.getElementById('reward-desc').textContent = recompensas[diaActual].desc;
-
-    // --- LÓGICA DE PROGRESO ---
     const checkboxes = document.querySelectorAll('.task-checkbox');
     const circle = document.getElementById('progress-circle');
     const progressText = document.getElementById('progress-text');
     const rewardCard = document.getElementById('final-reward-card');
     const giftIcon = document.getElementById('gift-icon');
-    const btnRegalo = document.getElementById('btn-regalo');
-    const totalLength = 502;
 
-    function updateProgress() {
+    // Cargar datos de Firestore al iniciar
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            document.getElementById('user-email').textContent = user.email;
+            document.getElementById('label-dia').textContent = `Día ${diaActual}`;
+            document.getElementById('reward-week-label').textContent = recompensas[diaActual].week;
+            document.getElementById('reward-title').textContent = recompensas[diaActual].titulo;
+            document.getElementById('reward-desc').textContent = recompensas[diaActual].desc;
+
+            // BUSCAR LA MEMORIA EN FIREBASE
+            const docRef = doc(db, "progreso", user.uid);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data()[`dia_${diaActual}`] || {};
+                checkboxes.forEach(cb => {
+                    if (data[cb.id] !== undefined) cb.checked = data[cb.id];
+                });
+            }
+            updateProgress(false); // No guardar al cargar, solo mostrar
+            document.getElementById('loader').classList.add('hidden');
+        } else {
+            window.location.href = "index.html"; // Redirigir al inicio (index)
+        }
+    });
+
+    // Guardar datos en Firestore cada vez que se hace clic
+    async function updateProgress(shouldSave = true) {
         const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
         const percentage = Math.round((checkedCount / checkboxes.length) * 100);
         
-        // Animación visual del círculo
-        circle.style.strokeDashoffset = totalLength - (percentage / 100) * totalLength;
+        circle.style.strokeDashoffset = 502 - (percentage / 100) * 502;
         progressText.textContent = `${percentage}%`;
 
-        // LÓGICA DE RECOMPENSA (Se activa al 100%)
         if (percentage === 100) {
             rewardCard.classList.remove('opacity-60', 'grayscale');
             rewardCard.classList.add('border-amber-400', 'bg-white', 'shadow-2xl');
             giftIcon.textContent = 'redeem';
-            giftIcon.classList.replace('text-slate-300', 'text-amber-500');
-            btnRegalo.classList.remove('hidden');
-            
-            // LA LLAVE DE SEGURIDAD (LocalStorage) guarda qué nivel desbloqueó
-            localStorage.setItem('regalo_nivel', diaActual.toString());
+            document.getElementById('btn-regalo').classList.remove('hidden');
+            localStorage.setItem('regalo_nivel', diaActual);
             localStorage.setItem('reto_completado', 'true');
         } else {
-            rewardCard.classList.add('opacity-60', 'grayscale');
-            rewardCard.classList.remove('border-amber-400', 'bg-white', 'shadow-2xl');
-            giftIcon.textContent = 'lock';
-            giftIcon.classList.replace('text-amber-500', 'text-slate-300');
-            btnRegalo.classList.add('hidden');
-            
-            // REMOVER LLAVE SI DESMARCAN
+            document.getElementById('btn-regalo').classList.add('hidden');
             localStorage.removeItem('reto_completado');
+        }
+
+        // ¡AQUÍ ES DONDE HABLA CON LA BASE DE DATOS!
+        if (shouldSave && auth.currentUser) {
+            const data = {};
+            checkboxes.forEach(cb => data[cb.id] = cb.checked);
+            try {
+                await setDoc(doc(db, "progreso", auth.currentUser.uid), {
+                    [`dia_${diaActual}`]: data
+                }, { merge: true });
+                console.log("¡Progreso guardado en Firebase!");
+            } catch (e) {
+                console.error("Error al guardar:", e);
+            }
         }
     }
 
-    // Redirección segura
-    window.validarYEntrar = function() {
-        window.location.href = "Regalo.html";
-    }
+    checkboxes.forEach(cb => cb.addEventListener('change', () => updateProgress(true)));
+    window.validarYEntrar = () => window.location.href = "Regalo.html";
 
-    checkboxes.forEach(cb => cb.addEventListener('change', updateProgress));
-    
-    // Función Salir
-    document.getElementById('logout-btn-mobile')?.addEventListener('click', () => {
-        signOut(auth).then(() => { window.location.href = "Login.html"; });
-    });
 </script>
 </body></html>

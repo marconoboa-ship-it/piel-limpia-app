@@ -25,7 +25,7 @@
 <div id="loader" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
     <div class="flex flex-col items-center gap-4">
         <span class="material-symbols-outlined animate-spin text-primary text-5xl">autorenew</span>
-        <p class="text-xs font-bold tracking-widest text-primary uppercase">Sincronizando con la nube...</p>
+        <p class="text-xs font-bold tracking-widest text-primary uppercase">Calculando tu progreso...</p>
     </div>
 </div>
 
@@ -42,24 +42,19 @@
 
 <div class="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
     <div class="main-grid">
+        
         <aside class="order-2 lg:order-1">
             <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
                 <h3 class="text-[10px] font-black tracking-widest text-slate-400 uppercase mb-4">Calendario 21 Días</h3>
-                <div class="flex lg:grid lg:grid-cols-4 gap-2 overflow-x-auto lg:overflow-visible">
-                    <script>
-                        for(let i=1; i<=21; i++) {
-                            const activeClass = i <= 7 ? 'bg-primary text-white shadow-lg' : 'bg-slate-50 text-slate-400 border border-slate-100';
-                            document.write(`<div class="flex-shrink-0 w-12 h-12 lg:w-full lg:h-12 flex items-center justify-center rounded-xl font-bold text-sm ${activeClass}">${i}</div>`);
-                        }
-                    </script>
-                </div>
+                <div id="calendario-container" class="flex lg:grid lg:grid-cols-4 gap-2 overflow-x-auto lg:overflow-visible pb-2 hide-scrollbar">
+                    </div>
             </div>
         </aside>
 
         <main class="order-1 lg:order-2 space-y-6">
             <section class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center relative overflow-hidden">
                 <div id="reward-badge" class="absolute top-4 right-4 bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-[10px] font-black tracking-widest flex items-center gap-1">
-                    <span class="material-symbols-outlined text-sm">redeem</span> RECOMPENSA ACTIVA
+                    <span class="material-symbols-outlined text-sm">flag</span> META DE SEMANA
                 </div>
                 <div class="relative flex items-center justify-center">
                     <svg class="w-44 h-44 transform -rotate-90">
@@ -68,17 +63,17 @@
                     </svg>
                     <div class="absolute flex flex-col items-center">
                         <span id="progress-text" class="font-headline font-black text-5xl text-on-surface">0%</span>
-                        <span id="label-dia" class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Día 7</span>
+                        <span id="label-dia" class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Día X</span>
                     </div>
                 </div>
-                <h2 id="titulo-dia" class="mt-6 font-headline font-extrabold text-2xl text-center">¡Casi llegas a tu hito!</h2>
+                <h2 id="titulo-dia" class="mt-6 font-headline font-extrabold text-2xl text-center">Calculando meta...</h2>
                 
                 <div id="final-reward-card" class="mt-8 w-full bg-slate-50 rounded-3xl p-6 border-2 border-dashed border-slate-200 flex flex-col items-center text-center opacity-60 grayscale transition-all duration-700">
                     <div class="bg-white w-16 h-16 rounded-full shadow-inner flex items-center justify-center mb-4"><span id="gift-icon" class="material-symbols-outlined text-4xl text-slate-300">lock</span></div>
                     <div class="w-full">
-                        <h4 id="reward-week-label" class="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-1">Semana 1</h4>
-                        <h3 id="reward-title" class="font-headline font-bold text-lg text-slate-800 mb-2">Cargando meta...</h3>
-                        <p id="reward-desc" class="text-[11px] text-slate-500 mb-4 px-4 italic">Completa tus rutinas para desbloquear.</p>
+                        <h4 id="reward-week-label" class="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-1">Semana X</h4>
+                        <h3 id="reward-title" class="font-headline font-bold text-lg text-slate-800 mb-2">Cargando...</h3>
+                        <p id="reward-desc" class="text-[11px] text-slate-500 mb-4 px-4 italic">Sincronizando datos con la clínica.</p>
                         <button id="btn-regalo" onclick="validarYEntrar()" class="hidden w-full gold-gradient py-4 rounded-2xl text-white font-black tracking-widest text-[10px] uppercase shadow-xl hover:scale-105 transition-all">Reclamar Premio</button>
                     </div>
                 </div>
@@ -122,12 +117,15 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    const diaActual = 7;
+    // Recompensas por meta
     const recompensas = {
-        7: { titulo: "Guía de Maquillaje Seguro", desc: "Evita productos que obstruyen tus poros.", week: "Semana 1" },
-        14: { titulo: "Recetario Batidos Detox", desc: "Limpia tu hígado para sanar tu piel.", week: "Semana 2" },
-        21: { titulo: "Masterclass: Piel Eterna", desc: "Mantén tus resultados para siempre.", week: "Final" }
+        7: { titulo: "Guía de Maquillaje Seguro", desc: "Completa el Día 7 al 100% para desbloquear tu primer regalo.", week: "Hito: Día 7" },
+        14: { titulo: "Recetario Batidos Detox", desc: "Completa el Día 14 al 100% para desbloquear tu recetario.", week: "Hito: Día 14" },
+        21: { titulo: "Masterclass: Piel Eterna", desc: "¡El gran final! Completa tu último día para acceder.", week: "Gran Final: Día 21" }
     };
+
+    let diaActualApp = 1; 
+    let diaMetaApp = 7;
 
     const checkboxes = document.querySelectorAll('.task-checkbox');
     const circle = document.getElementById('progress-circle');
@@ -135,33 +133,72 @@
     const rewardCard = document.getElementById('final-reward-card');
     const giftIcon = document.getElementById('gift-icon');
 
-    // Cargar datos de Firestore al iniciar
+    // Función para saber hacia qué regalo vamos
+    function calcularMeta(dia) {
+        if (dia <= 7) return 7;
+        if (dia <= 14) return 14;
+        return 21;
+    }
+
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             document.getElementById('user-email').textContent = user.email;
-            document.getElementById('label-dia').textContent = `Día ${diaActual}`;
-            document.getElementById('reward-week-label').textContent = recompensas[diaActual].week;
-            document.getElementById('reward-title').textContent = recompensas[diaActual].titulo;
-            document.getElementById('reward-desc').textContent = recompensas[diaActual].desc;
-
-            // BUSCAR LA MEMORIA EN FIREBASE
+            
+            // --- EL MOTOR DEL TIEMPO ---
             const docRef = doc(db, "progreso", user.uid);
             const docSnap = await getDoc(docRef);
+            let datos = {};
 
-            if (docSnap.exists()) {
-                const data = docSnap.data()[`dia_${diaActual}`] || {};
-                checkboxes.forEach(cb => {
-                    if (data[cb.id] !== undefined) cb.checked = data[cb.id];
-                });
+            if (docSnap.exists() && docSnap.data().fecha_inicio) {
+                // Si ya existe, calculamos cuántos días han pasado
+                datos = docSnap.data();
+                const hoy = new Date().getTime();
+                const diffMilisegundos = hoy - datos.fecha_inicio;
+                diaActualApp = Math.floor(diffMilisegundos / (1000 * 60 * 60 * 24)) + 1;
+            } else {
+                // Si es nuevo usuario, hoy es el Día 1 y guardamos la fecha en Firestore
+                await setDoc(docRef, { fecha_inicio: new Date().getTime() }, { merge: true });
+                diaActualApp = 1;
             }
-            updateProgress(false); // No guardar al cargar, solo mostrar
+
+            // Topes de seguridad
+            if (diaActualApp > 21) diaActualApp = 21;
+            if (diaActualApp < 1) diaActualApp = 1;
+            
+            diaMetaApp = calcularMeta(diaActualApp);
+
+            // --- ACTUALIZAR CALENDARIO DINÁMICAMENTE ---
+            const calContainer = document.getElementById('calendario-container');
+            calContainer.innerHTML = '';
+            for(let i=1; i<=21; i++) {
+                let cssClass = 'bg-slate-50 text-slate-400 border border-slate-100'; // Días futuros
+                if (i < diaActualApp) cssClass = 'bg-primary-container text-on-primary-container font-black'; // Días pasados
+                if (i === diaActualApp) cssClass = 'bg-primary text-white shadow-lg scale-110 border border-primary-container'; // HOY
+
+                calContainer.innerHTML += `<div class="flex-shrink-0 w-12 h-12 lg:w-full lg:h-12 flex items-center justify-center rounded-xl text-sm transition-all ${cssClass}">${i}</div>`;
+            }
+
+            // --- ACTUALIZAR TEXTOS Y METAS ---
+            document.getElementById('label-dia').textContent = `Día ${diaActualApp}`;
+            document.getElementById('titulo-dia').textContent = (diaActualApp === diaMetaApp) ? "¡Hoy es el día de tu recompensa!" : `Avanzando hacia el Día ${diaMetaApp}`;
+            
+            document.getElementById('reward-week-label').textContent = recompensas[diaMetaApp].week;
+            document.getElementById('reward-title').textContent = recompensas[diaMetaApp].titulo;
+            document.getElementById('reward-desc').textContent = recompensas[diaMetaApp].desc;
+
+            // --- CARGAR HÁBITOS DE HOY ---
+            const datosHoy = datos[`dia_${diaActualApp}`] || {};
+            checkboxes.forEach(cb => {
+                if (datosHoy[cb.id] !== undefined) cb.checked = datosHoy[cb.id];
+            });
+
+            updateProgress(false); 
             document.getElementById('loader').classList.add('hidden');
         } else {
-            window.location.href = "index.html"; // Redirigir al inicio (index)
+            window.location.href = "index.html"; 
         }
     });
 
-    // Guardar datos en Firestore cada vez que se hace clic
     async function updateProgress(shouldSave = true) {
         const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
         const percentage = Math.round((checkedCount / checkboxes.length) * 100);
@@ -169,27 +206,47 @@
         circle.style.strokeDashoffset = 502 - (percentage / 100) * 502;
         progressText.textContent = `${percentage}%`;
 
+        // LÓGICA INTELIGENTE DE RECOMPENSAS
         if (percentage === 100) {
-            rewardCard.classList.remove('opacity-60', 'grayscale');
-            rewardCard.classList.add('border-amber-400', 'bg-white', 'shadow-2xl');
-            giftIcon.textContent = 'redeem';
-            document.getElementById('btn-regalo').classList.remove('hidden');
-            localStorage.setItem('regalo_nivel', diaActual);
-            localStorage.setItem('reto_completado', 'true');
+            if (diaActualApp === diaMetaApp) {
+                // ¡LLEGÓ AL DÍA DE LA META (7, 14 o 21)!
+                rewardCard.classList.remove('opacity-60', 'grayscale', 'border-green-400', 'bg-green-50');
+                rewardCard.classList.add('border-amber-400', 'bg-white', 'shadow-2xl');
+                giftIcon.textContent = 'redeem';
+                giftIcon.classList.replace('text-slate-300', 'text-amber-500');
+                document.getElementById('btn-regalo').classList.remove('hidden');
+                document.getElementById('reward-desc').textContent = "¡Lo lograste! Reclama tu premio aquí abajo.";
+                localStorage.setItem('regalo_nivel', diaMetaApp);
+                localStorage.setItem('reto_completado', 'true');
+            } else {
+                // Terminó sus tareas, pero aún no es el día del premio (ej. Día 3)
+                rewardCard.classList.remove('opacity-60', 'grayscale', 'border-amber-400', 'bg-white', 'shadow-2xl');
+                rewardCard.classList.add('border-green-400', 'bg-green-50');
+                giftIcon.textContent = 'check_circle';
+                giftIcon.classList.replace('text-slate-300', 'text-green-500');
+                document.getElementById('reward-desc').textContent = "¡Excelente! Rutinas completadas por hoy. Sigue así hasta llegar a la meta.";
+                document.getElementById('btn-regalo').classList.add('hidden');
+            }
         } else {
+            // No ha llegado al 100% hoy
+            rewardCard.classList.add('opacity-60', 'grayscale');
+            rewardCard.classList.remove('border-amber-400', 'bg-white', 'shadow-2xl', 'border-green-400', 'bg-green-50');
+            giftIcon.textContent = 'lock';
+            giftIcon.classList.replace('text-amber-500', 'text-slate-300');
+            giftIcon.classList.replace('text-green-500', 'text-slate-300');
+            document.getElementById('reward-desc').textContent = recompensas[diaMetaApp].desc;
             document.getElementById('btn-regalo').classList.add('hidden');
             localStorage.removeItem('reto_completado');
         }
 
-        // ¡AQUÍ ES DONDE HABLA CON LA BASE DE DATOS!
+        // GUARDAR EN LA BASE DE DATOS
         if (shouldSave && auth.currentUser) {
             const data = {};
             checkboxes.forEach(cb => data[cb.id] = cb.checked);
             try {
                 await setDoc(doc(db, "progreso", auth.currentUser.uid), {
-                    [`dia_${diaActual}`]: data
+                    [`dia_${diaActualApp}`]: data
                 }, { merge: true });
-                console.log("¡Progreso guardado en Firebase!");
             } catch (e) {
                 console.error("Error al guardar:", e);
             }

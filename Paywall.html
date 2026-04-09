@@ -2,88 +2,115 @@
 <html class="light" lang="es"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Premium Upgrade | Piel Limpia</title>
+<title>Acceso Premium VIP | Piel Limpia</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet"/>
 <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "primary": "#1c6090",
-                    "surface": "#f8fafb",
-                    "on-surface": "#191c1d",
-                    "tertiary": "#735c00"
-            },
-            "fontFamily": {
-                    "headline": ["Manrope"],
-                    "body": ["Inter"]
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: "#1b6d24", surface: "#f8fafc" },
+                    fontFamily: { headline: ["Manrope"], body: ["Inter"] }
+                }
             }
-          },
-        },
-      }
+        }
     </script>
 <style>
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .satin-gradient { background: linear-gradient(135deg, #1c6090 0%, #3c79ab 100%); }
-        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); }
-    </style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+    .dark-gradient { background: linear-gradient(to bottom right, #0f172a, #1e293b); }
+</style>
 </head>
-<body class="bg-surface font-body text-on-surface">
+<body class="bg-surface font-body text-slate-800 antialiased min-h-screen">
 
-<div id="loader" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
-    <span class="material-symbols-outlined animate-spin text-primary text-5xl">autorenew</span>
-</div>
-
-<header class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl flex justify-between items-center px-6 h-16 border-b border-slate-100">
-<div class="flex items-center gap-4">
-    <a href="DashboardLite.html" class="material-symbols-outlined text-slate-600 hover:text-primary transition-colors">arrow_back</a>
-    <h1 class="text-sm font-bold tracking-widest uppercase font-headline">Piel Limpia Premium</h1>
-</div>
-<span class="material-symbols-outlined text-slate-400">lock</span>
+<header class="w-full bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+    <a href="DashboardLite.html" class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-xl">arrow_back</span>
+        <span class="text-xs font-bold tracking-widest uppercase">Volver al Dashboard</span>
+    </a>
+    <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary">spa</span>
+        <span class="font-headline font-black tracking-tighter text-slate-900 uppercase">Piel Limpia VIP</span>
+    </div>
 </header>
 
-<main class="pt-24 pb-32 px-6 max-w-4xl mx-auto min-h-screen flex flex-col items-center">
-<div class="flex flex-col items-center text-center mb-12">
-<div class="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-6 relative">
-    <span class="material-symbols-outlined text-5xl text-primary" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
-</div>
-<h2 class="text-3xl md:text-4xl font-extrabold text-on-surface font-headline tracking-tight leading-tight mb-4">
-    Desbloquea tu <span class="text-primary italic">Sanación Definitiva</span>
-</h2>
-<p class="text-slate-600 max-w-md text-sm leading-relaxed">
-    Accede a protocolos exclusivos y asesoría para una transformación total.
-</p>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-12">
-    <div class="bg-white rounded-xl p-6 border border-slate-100 shadow-sm flex flex-col gap-3">
-        <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary">restaurant_menu</span>
-            <h4 class="font-headline font-bold text-lg">Recetario Completo</h4>
-        </div>
-        <p class="text-slate-500 text-xs leading-relaxed">Menús anti-inflamatorios diseñados para limpiar tu piel desde la primera semana.</p>
+<main class="max-w-4xl mx-auto px-4 py-12">
+    
+    <div class="text-center mb-16">
+        <span class="inline-block py-1 px-3 rounded-full bg-amber-100 text-amber-700 text-[10px] font-black tracking-[0.2em] uppercase mb-4">El Siguiente Nivel</span>
+        <h1 class="font-headline font-extrabold text-4xl md:text-5xl text-slate-900 mb-4 tracking-tight">No pelees esta batalla a ciegas.</h1>
+        <p class="text-slate-500 max-w-xl mx-auto text-sm md:text-base">El protocolo de 21 días es poderoso, pero cada piel es única. Desbloquea el acceso VIP y obtén acompañamiento uno-a-uno para asegurar tus resultados.</p>
     </div>
-    <div class="bg-white rounded-xl p-6 border border-slate-100 shadow-sm flex flex-col gap-3">
-        <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary">group</span>
-            <h4 class="font-headline font-bold text-lg">Grupo de Apoyo</h4>
-        </div>
-        <p class="text-slate-500 text-xs leading-relaxed">Acceso a nuestra comunidad privada para resolver dudas en tiempo real.</p>
-    </div>
-</div>
 
-<div class="w-full max-w-sm">
-    <a href="https://pay.hotmart.com/TU_CODIGO_AQUI" target="_blank" class="satin-gradient w-full py-5 rounded-xl text-white font-headline font-bold text-lg shadow-lg hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-3 no-underline">
-        <span>Hacerme Premium Ahora</span>
-        <span class="material-symbols-outlined">arrow_forward</span>
-    </a>
-    <p class="text-center text-[10px] text-slate-400 mt-4 uppercase tracking-widest font-medium">
-        Pago único. Acceso de por vida a las actualizaciones.
-    </p>
-</div>
+    <div class="dark-gradient rounded-3xl p-1 md:p-2 shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500 rounded-full blur-[100px] opacity-20"></div>
+
+        <div class="bg-[#111827] rounded-[22px] p-6 md:p-10 text-white relative z-10 flex flex-col md:flex-row gap-10 items-center border border-slate-700/50">
+            
+            <div class="flex-1 w-full space-y-6">
+                <h3 class="font-headline font-bold text-2xl text-white">¿Qué incluye el Pase VIP?</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-amber-500/20 p-2 rounded-lg"><span class="material-symbols-outlined text-amber-400">forum</span></div>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Chat Directo con Especialistas</h4>
+                            <p class="text-xs text-slate-400">¿Un brote inesperado? Envíame una foto y te diré exactamente qué ajustar en tu rutina ese mismo día.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-amber-500/20 p-2 rounded-lg"><span class="material-symbols-outlined text-amber-400">science</span></div>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Análisis de Productos</h4>
+                            <p class="text-xs text-slate-400">Revisamos los ingredientes del maquillaje y cremas que tienes en casa para decirte cuáles botar y cuáles conservar.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-amber-500/20 p-2 rounded-lg"><span class="material-symbols-outlined text-amber-400">health_and_safety</span></div>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">Protocolo de Emergencia</h4>
+                            <p class="text-xs text-slate-400">Acceso a las recetas y técnicas secretas para desinflamar quistes en 24 horas antes de un evento importante.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full md:w-[350px] bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-2xl p-8 text-center flex flex-col">
+                <span class="text-xs text-amber-400 font-bold tracking-widest uppercase mb-2">Pago Único</span>
+                <div class="flex items-end justify-center gap-1 mb-2">
+                    <span class="text-2xl text-slate-400 line-through font-medium">$97</span>
+                    <span class="text-5xl font-black font-headline text-white">$47</span>
+                    <span class="text-sm text-slate-400 mb-1">USD</span>
+                </div>
+                <p class="text-xs text-slate-400 mb-6">Acceso de por vida. Sin suscripciones.</p>
+                
+                <a id="checkout-link" href="#" class="gold-gradient w-full block py-4 rounded-xl text-white font-black tracking-widest text-xs uppercase shadow-lg shadow-amber-500/20 hover:scale-105 transition-all mb-4">
+                    Completar mi Upgrade
+                </a>
+                
+                <div class="flex items-center justify-center gap-2 text-slate-500 text-[10px] uppercase tracking-widest font-bold">
+                    <span class="material-symbols-outlined text-sm">lock</span> Compra 100% Segura
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-16 text-center">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Resultados Clínicos Reales</p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 max-w-sm text-left">
+                <div class="flex text-amber-400 mb-2">★★★★★</div>
+                <p class="text-sm text-slate-600 mb-3 italic">"El chat con el especialista salvó mi graduación. Tuve un brote gigante 3 días antes, me dieron un protocolo de emergencia y desapareció. Vale cada centavo."</p>
+                <p class="text-xs font-bold text-slate-900">- Andrea V.</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 max-w-sm text-left">
+                <div class="flex text-amber-400 mb-2">★★★★★</div>
+                <p class="text-sm text-slate-600 mb-3 italic">"Me analizaron mi base de maquillaje y resultó que era lo que me estaba causando el acné. Cambié la rutina con su ayuda y mi piel es otra."</p>
+                <p class="text-xs font-bold text-slate-900">- Camila S.</p>
+            </div>
+        </div>
+    </div>
 </main>
 
 <script type="module">
@@ -102,12 +129,14 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Seguridad: Solo usuarios registrados ven esta oferta
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-            document.getElementById('loader').classList.add('hidden');
+        if (!user) {
+            window.location.href = "index.html"; 
         } else {
-            window.location.href = "Login.html";
+            // Aquí en el futuro podemos agregar el email del usuario al link de Hotmart
+            // para que no tenga que escribir su correo dos veces.
+            const checkoutBtn = document.getElementById('checkout-link');
+            // checkoutBtn.href = `TU_LINK_DE_HOTMART?email=${user.email}`;
         }
     });
 </script>

@@ -1,143 +1,157 @@
 <!DOCTYPE html>
-<html class="light" lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Acceso Premium VIP | Piel Limpia</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { primary: "#1b6d24", surface: "#f8fafc" },
-                    fontFamily: { headline: ["Manrope"], body: ["Inter"] }
-                }
-            }
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Círculo VIP - Piel Limpia</title>
+    <style>
+        /* Diseño High-Ticket: Oscuro y Dorado */
+        body { 
+            background-color: #0a0a0a; 
+            color: #f5f5f5; 
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
         }
-    </script>
-<style>
-    .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
-    .dark-gradient { background: linear-gradient(to bottom right, #0f172a, #1e293b); }
-</style>
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 50px 20px; 
+            text-align: center; 
+        }
+        h1 { 
+            color: #D4AF37; /* Dorado Elegante */
+            font-size: 2.5em; 
+            margin-bottom: 10px; 
+            letter-spacing: 1px;
+        }
+        p.subtitle { 
+            font-size: 1.2em; 
+            color: #a0a0a0; 
+            margin-bottom: 40px; 
+            line-height: 1.5;
+        }
+        .card { 
+            background-color: #151515; 
+            border: 1px solid #D4AF37; 
+            border-radius: 12px; 
+            padding: 40px; 
+            margin-bottom: 30px; 
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .card h2 { 
+            color: #D4AF37; 
+            margin-top: 0; 
+            font-size: 1.8em;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .card ul { 
+            list-style-type: none; 
+            padding: 0; 
+        }
+        .card li { 
+            margin-bottom: 20px; 
+            padding-left: 35px; 
+            position: relative; 
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .card li::before { 
+            content: '✨'; 
+            position: absolute; 
+            left: 0; 
+            color: #D4AF37; 
+            font-size: 1.2em;
+        }
+        .price { 
+            font-size: 3em; 
+            color: #fff; 
+            font-weight: bold; 
+            text-align: center; 
+            margin: 30px 0; 
+        }
+        .price span { 
+            font-size: 0.35em; 
+            color: #a0a0a0; 
+            font-weight: normal; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .btn-gold { 
+            display: inline-block; 
+            background: linear-gradient(135deg, #D4AF37, #AA8222); 
+            color: #000; 
+            padding: 18px 45px; 
+            font-size: 1.2em; 
+            font-weight: bold; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); 
+            transition: all 0.3s ease; 
+        }
+        .btn-gold:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5); 
+        }
+        .back-link { 
+            display: block; 
+            margin-top: 40px; 
+            color: #666; 
+            text-decoration: none; 
+            font-size: 0.95em; 
+            transition: color 0.3s;
+        }
+        .back-link:hover { 
+            color: #D4AF37; 
+        }
+    </style>
 </head>
-<body class="bg-surface font-body text-slate-800 antialiased min-h-screen">
+<body>
+    <div class="container">
+        <h1>Círculo Premium VIP</h1>
+        <p class="subtitle">El protocolo definitivo para una Piel Eterna.<br>Pasa de la fase de curación al mantenimiento de alto nivel.</p>
 
-<header class="w-full bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
-    <a href="DashboardLite.html" class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors">
-        <span class="material-symbols-outlined text-xl">arrow_back</span>
-        <span class="text-xs font-bold tracking-widest uppercase">Volver al Dashboard</span>
-    </a>
-    <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary">spa</span>
-        <span class="font-headline font-black tracking-tighter text-slate-900 uppercase">Piel Limpia VIP</span>
-    </div>
-</header>
-
-<main class="max-w-4xl mx-auto px-4 py-12">
-    
-    <div class="text-center mb-16">
-        <span class="inline-block py-1 px-3 rounded-full bg-amber-100 text-amber-700 text-[10px] font-black tracking-[0.2em] uppercase mb-4">El Siguiente Nivel</span>
-        <h1 class="font-headline font-extrabold text-4xl md:text-5xl text-slate-900 mb-4 tracking-tight">No pelees esta batalla a ciegas.</h1>
-        <p class="text-slate-500 max-w-xl mx-auto text-sm md:text-base">El protocolo de 21 días es poderoso, pero cada piel es única. Desbloquea el acceso VIP y obtén acompañamiento uno-a-uno para asegurar tus resultados.</p>
-    </div>
-
-    <div class="dark-gradient rounded-3xl p-1 md:p-2 shadow-2xl relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500 rounded-full blur-[100px] opacity-20"></div>
-
-        <div class="bg-[#111827] rounded-[22px] p-6 md:p-10 text-white relative z-10 flex flex-col md:flex-row gap-10 items-center border border-slate-700/50">
+        <div class="card">
+            <h2>¿Qué incluye tu Upgrade VIP?</h2>
+            <ul>
+                <li><strong>Acompañamiento Clínico Continuo:</strong> No estás solo. Podrás hacer consultas para ajustar tu protocolo según cambios de clima, viajes o estrés.</li>
+                <li><strong>El Protocolo de Emergencia SOS:</strong> Acceso a la táctica exacta para frenar un brote activo en menos de 24 horas antes de un evento importante.</li>
+                <li><strong>Módulo de Cicatrices y Manchas:</strong> Guía detallada con los activos exactos para borrar el daño residual (PIE y PIH) sin irritar tu barrera cutánea.</li>
+                <li><strong>Auditoría de Rutina Personalizada:</strong> Evaluamos juntos los productos que tienes en casa para detectar saboteadores invisibles.</li>
+            </ul>
             
-            <div class="flex-1 w-full space-y-6">
-                <h3 class="font-headline font-bold text-2xl text-white">¿Qué incluye el Pase VIP?</h3>
-                
-                <div class="space-y-4">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-amber-500/20 p-2 rounded-lg"><span class="material-symbols-outlined text-amber-400">forum</span></div>
-                        <div>
-                            <h4 class="font-bold text-sm text-white">Chat Directo con Especialistas</h4>
-                            <p class="text-xs text-slate-400">¿Un brote inesperado? Envíame una foto y te diré exactamente qué ajustar en tu rutina ese mismo día.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="bg-amber-500/20 p-2 rounded-lg"><span class="material-symbols-outlined text-amber-400">science</span></div>
-                        <div>
-                            <h4 class="font-bold text-sm text-white">Análisis de Productos</h4>
-                            <p class="text-xs text-slate-400">Revisamos los ingredientes del maquillaje y cremas que tienes en casa para decirte cuáles botar y cuáles conservar.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="bg-amber-500/20 p-2 rounded-lg"><span class="material-symbols-outlined text-amber-400">health_and_safety</span></div>
-                        <div>
-                            <h4 class="font-bold text-sm text-white">Protocolo de Emergencia</h4>
-                            <p class="text-xs text-slate-400">Acceso a las recetas y técnicas secretas para desinflamar quistes en 24 horas antes de un evento importante.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-full md:w-[350px] bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-2xl p-8 text-center flex flex-col">
-                <span class="text-xs text-amber-400 font-bold tracking-widest uppercase mb-2">Pago Único</span>
-                <div class="flex items-end justify-center gap-1 mb-2">
-                    <span class="text-2xl text-slate-400 line-through font-medium">$97</span>
-                    <span class="text-5xl font-black font-headline text-white">$47</span>
-                    <span class="text-sm text-slate-400 mb-1">USD</span>
-                </div>
-                <p class="text-xs text-slate-400 mb-6">Acceso de por vida. Sin suscripciones.</p>
-                
-                <a id="checkout-link" href="#" class="gold-gradient w-full block py-4 rounded-xl text-white font-black tracking-widest text-xs uppercase shadow-lg shadow-amber-500/20 hover:scale-105 transition-all mb-4">
-                    Completar mi Upgrade
-                </a>
-                
-                <div class="flex items-center justify-center gap-2 text-slate-500 text-[10px] uppercase tracking-widest font-bold">
-                    <span class="material-symbols-outlined text-sm">lock</span> Compra 100% Segura
-                </div>
+            <div class="price">$47 <span>USD / pago único</span></div>
+            
+            <div style="text-align: center;">
+                <a href="#" class="btn-gold">Completar mi Upgrade</a>
             </div>
         </div>
+
+        <p style="color: #444; font-size: 0.85em;">Pago 100% seguro. Acceso inmediato al área de miembros.</p>
+        
+        <a href="DashboardLite.html" class="back-link">← Volver a mi Dashboard</a>
     </div>
 
-    <div class="mt-16 text-center">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Resultados Clínicos Reales</p>
-        <div class="flex flex-col md:flex-row gap-4 justify-center">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 max-w-sm text-left">
-                <div class="flex text-amber-400 mb-2">★★★★★</div>
-                <p class="text-sm text-slate-600 mb-3 italic">"El chat con el especialista salvó mi graduación. Tuve un brote gigante 3 días antes, me dieron un protocolo de emergencia y desapareció. Vale cada centavo."</p>
-                <p class="text-xs font-bold text-slate-900">- Andrea V.</p>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 max-w-sm text-left">
-                <div class="flex text-amber-400 mb-2">★★★★★</div>
-                <p class="text-sm text-slate-600 mb-3 italic">"Me analizaron mi base de maquillaje y resultó que era lo que me estaba causando el acné. Cambié la rutina con su ayuda y mi piel es otra."</p>
-                <p class="text-xs font-bold text-slate-900">- Camila S.</p>
-            </div>
-        </div>
-    </div>
-</main>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        const firebaseConfig = {
+          apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
+          authDomain: "portal-piel-limpia.firebaseapp.com",
+          projectId: "portal-piel-limpia",
+          storageBucket: "portal-piel-limpia.firebasestorage.app",
+          messagingSenderId: "398053436634",
+          appId: "1:398053436634:web:08d83ef125b0f8080009e3"
+        };
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
-      authDomain: "portal-piel-limpia.firebaseapp.com",
-      projectId: "portal-piel-limpia",
-      storageBucket: "portal-piel-limpia.firebasestorage.app",
-      messagingSenderId: "398053436634",
-      appId: "1:398053436634:web:08d83ef125b0f8080009e3"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "index.html"; 
-        } else {
-            // Aquí en el futuro podemos agregar el email del usuario al link de Hotmart
-            // para que no tenga que escribir su correo dos veces.
-            const checkoutBtn = document.getElementById('checkout-link');
-            // checkoutBtn.href = `TU_LINK_DE_HOTMART?email=${user.email}`;
-        }
-    });
-</script>
-</body></html>
+        // Al inicializar sin el "getAuth()" y sin la función "onAuthStateChanged",
+        // la página se vuelve pública y ya no te expulsa al index.html
+        const app = initializeApp(firebaseConfig);
+    </script>
+</body>
+</html>

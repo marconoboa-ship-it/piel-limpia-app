@@ -32,31 +32,11 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
-        .nav-left { 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-        }
-        
-        .logo-icon { 
-            width: 35px; 
-            height: 35px; 
-            fill: var(--verde-primario); 
-        }
-        
-        .logo-text { 
-            font-size: 20px; 
-            font-weight: 800; 
-            color: var(--verde-primario); 
-            letter-spacing: 0.5px; 
-        }
+        .nav-left { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { width: 35px; height: 35px; fill: var(--verde-primario); }
+        .logo-text { font-size: 20px; font-weight: 800; color: var(--verde-primario); letter-spacing: 0.5px; }
 
-        .nav-right { 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-        }
-        
+        .nav-right { display: flex; align-items: center; gap: 15px; }
         .client-tag { font-size: 11px; font-weight: 700; color: #999; letter-spacing: 1px; }
         .user-email { font-size: 13px; font-weight: 500; color: #444; margin-right: 10px; }
         
@@ -84,10 +64,7 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        .btn-logout:hover {
-            background: var(--verde-primario);
-            color: white;
-        }
+        .btn-logout:hover { background: var(--verde-primario); color: white; }
 
         /* GRID PRINCIPAL */
         .main-grid {
@@ -123,7 +100,7 @@
         .day-completed { background-color: var(--verde-primario); color: white; }
         .day-active { border: 2px solid var(--verde-primario); color: var(--verde-primario); background: #eef5ef; }
 
-        /* COLUMNA 2: PROGRESO CENTRAL */
+        /* COLUMNA 2: PROGRESO CENTRAL INTERACTIVO */
         .center-col { text-align: center; position: relative; }
         .reward-badge {
             background: #fff9e6;
@@ -137,29 +114,55 @@
             top: 0;
             border: 1px solid #ffeeba;
         }
+
+        /* El nuevo círculo dinámico */
         .progress-circle {
             width: 150px;
             height: 150px;
-            border: 12px solid #eef2f6;
-            border-top: 12px solid #3b5998; 
             border-radius: 50%;
+            background: conic-gradient(#eef2f6 100%, #eef2f6 0); /* Inicia vacío */
             margin: 20px auto;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
+            transition: background 0.3s ease;
         }
-        .progress-circle span { font-size: 32px; font-weight: 700; display: block; }
-        .progress-circle small { font-size: 11px; color: #999; }
+        
+        /* Hueco central blanco para hacer el efecto de dona */
+        .progress-circle::before {
+            content: "";
+            position: absolute;
+            inset: 12px; /* Grosor de la barra */
+            background-color: var(--gris-fondo);
+            border-radius: 50%;
+        }
+
+        .progress-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .progress-content span { font-size: 32px; font-weight: 700; color: #333; }
+        .progress-content small { font-size: 11px; color: #999; }
         
         .hito-card {
             margin-top: 30px;
-            border: 2px dashed #eee;
+            border: 2px dashed #ddd;
             padding: 30px;
             border-radius: 20px;
             text-align: center;
+            transition: all 0.3s;
         }
-        .lock-icon { font-size: 30px; color: #eee; margin-bottom: 15px; display: block; }
+        .lock-icon { 
+            font-size: 30px; 
+            color: #ddd; 
+            margin-bottom: 15px; 
+            display: block; 
+            transition: all 0.3s;
+        }
 
         /* COLUMNA 3: CONSEJOS Y VIP */
         .advice-card { background: var(--verde-primario); color: white; border-radius: 20px; padding: 0; overflow: hidden; }
@@ -182,7 +185,7 @@
         }
         .btn-vip:hover { transform: translateY(-2px); }
 
-        /* CHECKLISTS INFERIORES (FUNCIONALES) */
+        /* CHECKLISTS INFERIORES */
         .bottom-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -194,7 +197,7 @@
         .checklist-title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; color: var(--verde-primario); margin-bottom: 20px; }
         
         .task-row {
-            background: #f8fafc;
+            background: white;
             padding: 15px 20px;
             border-radius: 12px;
             margin-bottom: 10px;
@@ -202,11 +205,12 @@
             align-items: center;
             gap: 15px;
             font-size: 13px;
-            cursor: pointer; /* Indica que se puede hacer clic */
+            cursor: pointer; 
             transition: background 0.3s;
             user-select: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
-        .task-row:hover { background: #f0f4f1; }
+        .task-row:hover { background: #f8fafc; }
         
         .checkbox-custom { 
             width: 20px; 
@@ -219,7 +223,6 @@
             flex-shrink: 0;
         }
 
-        /* Efecto Visual al hacer clic (Tachar) */
         .task-row.checked .checkbox-custom { border-color: var(--verde-primario); }
         .task-row.checked .checkbox-custom::after {
             content: '✓';
@@ -253,19 +256,23 @@
     <div class="main-grid">
         <div class="card">
             <div class="calendar-title">Calendario 21 Días</div>
-            <div class="calendar-grid" id="calendar">
-                </div>
+            <div class="calendar-grid" id="calendar"></div>
         </div>
 
         <div class="center-col">
             <div class="reward-badge">🎁 RECOMPENSA DE SEMANA</div>
-            <div class="progress-circle">
-                <span id="pct-text">0%</span>
-                <small id="day-text">DÍA 0</small>
+            
+            <div class="progress-circle" id="progress-circle">
+                <div class="progress-content">
+                    <span id="pct-text">0%</span>
+                    <small id="day-text">DÍA 0</small>
+                </div>
             </div>
+
             <h3>¡Casi llegas a tu próximo hito!</h3>
-            <div class="hito-card">
-                <span class="lock-icon">🔒</span>
+            
+            <div class="hito-card" id="hito-card">
+                <span class="lock-icon" id="lock-icon">🔒</span>
                 <div style="font-size: 11px; font-weight: 700; color: #bbb; text-transform: uppercase;">Hito: Semana 1</div>
                 <div style="font-size: 16px; font-weight: 700; margin: 5px 0;">Guía de Maquillaje Seguro</div>
                 <p style="font-size: 11px; color: #999;">Evita productos que obstruyan tus poros. Completa el 100% de hoy para desbloquear.</p>
@@ -309,9 +316,43 @@
     </div>
 
     <script>
-        // Función para marcar las tareas (Click)
         function toggleTask(element) {
+            // Tachar la tarea
             element.classList.toggle('checked');
+            
+            // Recalcular progreso
+            actualizarProgresoDiario();
+        }
+
+        function actualizarProgresoDiario() {
+            const tareasTotales = document.querySelectorAll('.task-row').length;
+            const tareasCompletadas = document.querySelectorAll('.task-row.checked').length;
+            
+            // Calcular porcentaje exacto
+            const porcentaje = Math.round((tareasCompletadas / tareasTotales) * 100);
+            
+            // Actualizar número en el centro
+            document.getElementById('pct-text').innerText = porcentaje + '%';
+            
+            // Pintar el círculo dinámicamente
+            const circulo = document.getElementById('progress-circle');
+            circulo.style.background = `conic-gradient(var(--verde-primario) ${porcentaje}%, #eef2f6 ${porcentaje}%)`;
+
+            // Efecto de desbloqueo al llegar a 100%
+            const candado = document.getElementById('lock-icon');
+            const tarjetaHito = document.getElementById('hito-card');
+
+            if(porcentaje === 100) {
+                candado.innerText = '🔓';
+                candado.style.color = 'var(--dorado)';
+                tarjetaHito.style.borderColor = 'var(--dorado)';
+                tarjetaHito.style.backgroundColor = '#fff9e6';
+            } else {
+                candado.innerText = '🔒';
+                candado.style.color = '#ddd';
+                tarjetaHito.style.borderColor = '#ddd';
+                tarjetaHito.style.backgroundColor = 'transparent';
+            }
         }
     </script>
 
@@ -331,7 +372,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Control de Sesión
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "index.html";
@@ -341,7 +381,6 @@
             }
         });
 
-        // Botón Logout Restaurado
         document.getElementById('btn-logout').addEventListener('click', () => {
             const btn = document.getElementById('btn-logout');
             btn.innerText = "SALIENDO...";
@@ -350,15 +389,14 @@
             }).catch((error) => console.error(error));
         });
 
-        // Motor del Tiempo
         function renderDashboard(user) {
             const calendarEl = document.getElementById('calendar');
             const startDate = new Date(user.metadata.creationTime);
             const today = new Date();
             const diffDays = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
             
+            // Solo actualiza el texto del día, el % inicial será 0%
             document.getElementById('day-text').innerText = `DÍA ${diffDays}`;
-            document.getElementById('pct-text').innerText = Math.min(Math.round((diffDays/21)*100), 100) + "%";
 
             for (let i = 1; i <= 21; i++) {
                 const box = document.createElement('div');

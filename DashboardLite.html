@@ -1,277 +1,285 @@
 <!DOCTYPE html>
-<html class="light" lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Piel Limpia - Portal Clínico</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: { extend: { colors: { "primary": "#1b6d24", "primary-container": "#a3f69c", "on-primary-container": "#065f18", "surface": "#f4f7f5", "on-surface": "#2d3435" } } }
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control - Piel Limpia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --verde-primario: #1c5c32;
+            --verde-claro: #f4f7f6;
+            --gris-texto: #555;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--verde-claro);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* Contenedor Principal */
+        .dashboard-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        /* Botón Logout Premium */
+        #btn-logout {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            color: var(--verde-primario);
+            border: 1.5px solid var(--verde-primario);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #btn-logout:hover {
+            background-color: var(--verde-primario);
+            color: white;
+        }
+
+        /* Encabezado con tu Logo */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header img {
+            max-width: 140px;
+            margin-bottom: 10px;
+        }
+
+        /* Barra de Progreso */
+        .progress-section {
+            margin-bottom: 30px;
+        }
+
+        .progress-bar-bg {
+            background: #e2e8f0;
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #progress-fill {
+            background: linear-gradient(90deg, #1c5c32, #2d8a4e);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Calendario de 21 Días */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1-fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .day-box {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            border: 2px solid #eee;
+            color: #ccc;
+        }
+
+        .day-active {
+            border-color: var(--verde-primario);
+            color: var(--verde-primario);
+            background-color: #e6f0e9;
+        }
+
+        .day-completed {
+            background-color: var(--verde-primario);
+            color: white;
+            border-color: var(--verde-primario);
+        }
+
+        /* Tareas del Día */
+        .task-list {
+            text-align: left;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .task-item:hover { background: #f0f4f1; }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--verde-primario);
+            border-radius: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checked .checkbox::after {
+            content: '✓';
+            color: var(--verde-primario);
+            font-weight: bold;
+        }
+
+        .vip-link {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            color: #AA8222;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <button id="btn-logout">Cerrar Sesión</button>
+        
+        <div class="header">
+            <img src="logo.png" alt="Piel Limpia">
+            <h2 id="day-title">Día 1: Iniciando tu Protocolo</h2>
+        </div>
+
+        <div class="progress-section">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; font-weight: 600;">
+                <span>Progreso General</span>
+                <span id="progress-text">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div id="calendar" class="calendar-grid">
+            </div>
+
+        <div class="task-list" id="task-container">
+            <h3>Tareas de Hoy:</h3>
+            <div class="task-item" onclick="toggleTask(this)">
+                <div class="checkbox"></div>
+                <span>Limpieza Facial Am/Pm</span>
+            </div>
+            <div class="task-item" onclick="toggleTask(this)">
+                <div class="checkbox"></div>
+                <span>Suplemento Control Acné</span>
+            </div>
+            <div class="task-item" onclick="toggleTask(this)">
+                <div class="checkbox"></div>
+                <span>Batido Detox / Nutrición</span>
+            </div>
+        </div>
+
+        <a href="Paywall.html" class="vip-link">✨ DESBLOQUEAR ACOMPAÑAMIENTO VIP ✨</a>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
+          authDomain: "portal-piel-limpia.firebaseapp.com",
+          projectId: "portal-piel-limpia",
+          storageBucket: "portal-piel-limpia.firebasestorage.app",
+          messagingSenderId: "398053436634",
+          appId: "1:398053436634:web:08d83ef125b0f8080009e3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // 1. SEGURIDAD: Verificar sesión y manejar Logout
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "index.html"; // No hay sesión, expulsar
+            } else {
+                console.log("Sesión activa:", user.email);
+                inicializarDashboard(user);
+            }
+        });
+
+        // Lógica del botón Logout
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            const btn = document.getElementById('btn-logout');
+            btn.innerText = "Saliendo...";
+            signOut(auth).then(() => {
+                window.location.href = "index.html";
+            }).catch((error) => {
+                console.error("Error al salir", error);
+                btn.innerText = "Error";
+            });
+        });
+
+        // 2. MOTOR DEL TIEMPO Y PROGRESO
+        function inicializarDashboard(user) {
+            const calendarEl = document.getElementById('calendar');
+            const creationTime = user.metadata.creationTime;
+            const startDate = new Date(creationTime);
+            const today = new Date();
+            
+            // Calcular día actual del reto
+            const diffTime = Math.abs(today - startDate);
+            const currentDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            document.getElementById('day-title').innerText = `Día ${currentDay}: Protocolo Activo`;
+
+            // Generar Calendario Visual
+            calendarEl.innerHTML = "";
+            for (let i = 1; i <= 21; i++) {
+                const dayBox = document.createElement('div');
+                dayBox.classList.add('day-box');
+                dayBox.innerText = i;
+                
+                if (i < currentDay) dayBox.classList.add('day-completed');
+                else if (i === currentDay) dayBox.classList.add('day-active');
+                
+                calendarEl.appendChild(dayBox);
+            }
+
+            // Actualizar barra de progreso basado en el día
+            const progress = Math.min(Math.round(((currentDay - 1) / 21) * 100), 100);
+            document.getElementById('progress-fill').style.width = progress + "%";
+            document.getElementById('progress-text').innerText = progress + "%";
         }
     </script>
-<style>
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    .hide-scrollbar::-webkit-scrollbar { display: none; }
-    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
-    @media (min-width: 1024px) { .main-grid { display: grid; grid-template-columns: 280px 1fr 300px; gap: 2rem; align-items: start; } }
-</style>
-</head>
-<body class="bg-surface font-body text-on-surface antialiased">
-        <button id="btn-logout" style="position: absolute; top: 20px; right: 20px; background-color: #1c5c32; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(28, 92, 50, 0.3); transition: transform 0.2s;">
-    Cerrar Sesión
-</button>
 
-<script type="module">
-    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-    const auth = getAuth();
-    
-    document.getElementById('btn-logout').addEventListener('click', () => {
-        document.getElementById('btn-logout').innerText = "Saliendo...";
-        signOut(auth).then(() => {
-            window.location.href = "index.html"; // Expulsa al usuario a la página de inicio
-        }).catch((error) => {
-            console.error("Error al cerrar sesión", error);
-        });
-    });
-</script>
-
-<div id="loader" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
-    <div class="flex flex-col items-center gap-4">
-        <span class="material-symbols-outlined animate-spin text-primary text-5xl">autorenew</span>
-        <p class="text-xs font-bold tracking-widest text-primary uppercase">Calculando tu progreso...</p>
-    </div>
-</div>
-
-<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md flex justify-between items-center px-8 h-16 border-b border-slate-200">
-    <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary text-3xl">spa</span>
-        <span class="text-lg font-black tracking-tighter text-primary uppercase font-headline">Piel Limpia</span>
-    </div>
-    <div class="flex items-center gap-4">
-        <span id="user-email" class="text-xs font-medium text-slate-500 hidden md:block"></span>
-        <a href="Paywall.html" class="px-4 py-2 bg-primary-container text-on-primary-container rounded-lg text-[10px] font-black tracking-widest no-underline shadow-sm">UPGRADE PREMIUM</a>
-    </div>
-</header>
-
-<div class="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
-    <div class="main-grid">
-        
-        <aside class="order-2 lg:order-1">
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                <h3 class="text-[10px] font-black tracking-widest text-slate-400 uppercase mb-4">Calendario 21 Días</h3>
-                <div id="calendario-container" class="flex lg:grid lg:grid-cols-4 gap-2 overflow-x-auto lg:overflow-visible pb-2 hide-scrollbar">
-                    </div>
-            </div>
-        </aside>
-
-        <main class="order-1 lg:order-2 space-y-6">
-            <section class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center relative overflow-hidden">
-                <div id="reward-badge" class="absolute top-4 right-4 bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-[10px] font-black tracking-widest flex items-center gap-1">
-                    <span class="material-symbols-outlined text-sm">flag</span> META DE SEMANA
-                </div>
-                <div class="relative flex items-center justify-center">
-                    <svg class="w-44 h-44 transform -rotate-90">
-                        <circle class="text-slate-100" cx="88" cy="88" fill="transparent" r="80" stroke="currentColor" stroke-width="10"></circle>
-                        <circle id="progress-circle" class="text-primary transition-all duration-1000" cx="88" cy="88" fill="transparent" r="80" stroke="currentColor" stroke-dasharray="502" stroke-dashoffset="502" stroke-width="10" stroke-linecap="round"></circle>
-                    </svg>
-                    <div class="absolute flex flex-col items-center">
-                        <span id="progress-text" class="font-headline font-black text-5xl text-on-surface">0%</span>
-                        <span id="label-dia" class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Día X</span>
-                    </div>
-                </div>
-                <h2 id="titulo-dia" class="mt-6 font-headline font-extrabold text-2xl text-center">Calculando meta...</h2>
-                
-                <div id="final-reward-card" class="mt-8 w-full bg-slate-50 rounded-3xl p-6 border-2 border-dashed border-slate-200 flex flex-col items-center text-center opacity-60 grayscale transition-all duration-700">
-                    <div class="bg-white w-16 h-16 rounded-full shadow-inner flex items-center justify-center mb-4"><span id="gift-icon" class="material-symbols-outlined text-4xl text-slate-300">lock</span></div>
-                    <div class="w-full">
-                        <h4 id="reward-week-label" class="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-1">Semana X</h4>
-                        <h3 id="reward-title" class="font-headline font-bold text-lg text-slate-800 mb-2">Cargando...</h3>
-                        <p id="reward-desc" class="text-[11px] text-slate-500 mb-4 px-4 italic">Sincronizando datos con la clínica.</p>
-                        <button id="btn-regalo" onclick="validarYEntrar()" class="hidden w-full gold-gradient py-4 rounded-2xl text-white font-black tracking-widest text-[10px] uppercase shadow-xl hover:scale-105 transition-all">Reclamar Premio</button>
-                    </div>
-                </div>
-            </section>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <article class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="flex items-center gap-3 mb-6"><span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">light_mode</span><h3 class="font-bold text-sm uppercase tracking-tighter">Rutina Mañana</h3></div>
-                    <div class="space-y-3">
-                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_m1" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Limpieza Gel No-Comedogénico</span></label>
-                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_m2" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Protector Solar FPS 50+</span></label>
-                    </div>
-                </article>
-                <article class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="flex items-center gap-3 mb-6"><span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">spa</span><h3 class="font-bold text-sm uppercase tracking-tighter">Hábitos Saludables</h3></div>
-                    <div class="space-y-3">
-                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_h1" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Dieta Antiinflamatoria</span></label>
-                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_h2" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Sanitizar Smartphone</span></label>
-                    </div>
-                </article>
-            </div>
-        </main>
-    </div>
-</div>
-
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
-      authDomain: "portal-piel-limpia.firebaseapp.com",
-      projectId: "portal-piel-limpia",
-      storageBucket: "portal-piel-limpia.firebasestorage.app",
-      messagingSenderId: "398053436634",
-      appId: "1:398053436634:web:08d83ef125b0f8080009e3"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    // Recompensas por meta
-    const recompensas = {
-        7: { titulo: "Guía de Maquillaje Seguro", desc: "Completa el Día 7 al 100% para desbloquear tu primer regalo.", week: "Hito: Día 7" },
-        14: { titulo: "Recetario Batidos Detox", desc: "Completa el Día 14 al 100% para desbloquear tu recetario.", week: "Hito: Día 14" },
-        21: { titulo: "Masterclass: Piel Eterna", desc: "¡El gran final! Completa tu último día para acceder.", week: "Gran Final: Día 21" }
-    };
-
-    let diaActualApp = 1; 
-    let diaMetaApp = 7;
-
-    const checkboxes = document.querySelectorAll('.task-checkbox');
-    const circle = document.getElementById('progress-circle');
-    const progressText = document.getElementById('progress-text');
-    const rewardCard = document.getElementById('final-reward-card');
-    const giftIcon = document.getElementById('gift-icon');
-
-    // Función para saber hacia qué regalo vamos
-    function calcularMeta(dia) {
-        if (dia <= 7) return 7;
-        if (dia <= 14) return 14;
-        return 21;
-    }
-
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            document.getElementById('user-email').textContent = user.email;
-            
-            // --- EL MOTOR DEL TIEMPO ---
-            const docRef = doc(db, "progreso", user.uid);
-            const docSnap = await getDoc(docRef);
-            let datos = {};
-
-            if (docSnap.exists() && docSnap.data().fecha_inicio) {
-                // Si ya existe, calculamos cuántos días han pasado
-                datos = docSnap.data();
-                const hoy = new Date().getTime();
-                const diffMilisegundos = hoy - datos.fecha_inicio;
-                diaActualApp = Math.floor(diffMilisegundos / (1000 * 60 * 60 * 24)) + 1;
-            } else {
-                // Si es nuevo usuario, hoy es el Día 1 y guardamos la fecha en Firestore
-                await setDoc(docRef, { fecha_inicio: new Date().getTime() }, { merge: true });
-                diaActualApp = 1;
-            }
-
-            // Topes de seguridad
-            if (diaActualApp > 21) diaActualApp = 21;
-            if (diaActualApp < 1) diaActualApp = 1;
-            
-            diaMetaApp = calcularMeta(diaActualApp);
-
-            // --- ACTUALIZAR CALENDARIO DINÁMICAMENTE ---
-            const calContainer = document.getElementById('calendario-container');
-            calContainer.innerHTML = '';
-            for(let i=1; i<=21; i++) {
-                let cssClass = 'bg-slate-50 text-slate-400 border border-slate-100'; // Días futuros
-                if (i < diaActualApp) cssClass = 'bg-primary-container text-on-primary-container font-black'; // Días pasados
-                if (i === diaActualApp) cssClass = 'bg-primary text-white shadow-lg scale-110 border border-primary-container'; // HOY
-
-                calContainer.innerHTML += `<div class="flex-shrink-0 w-12 h-12 lg:w-full lg:h-12 flex items-center justify-center rounded-xl text-sm transition-all ${cssClass}">${i}</div>`;
-            }
-
-            // --- ACTUALIZAR TEXTOS Y METAS ---
-            document.getElementById('label-dia').textContent = `Día ${diaActualApp}`;
-            document.getElementById('titulo-dia').textContent = (diaActualApp === diaMetaApp) ? "¡Hoy es el día de tu recompensa!" : `Avanzando hacia el Día ${diaMetaApp}`;
-            
-            document.getElementById('reward-week-label').textContent = recompensas[diaMetaApp].week;
-            document.getElementById('reward-title').textContent = recompensas[diaMetaApp].titulo;
-            document.getElementById('reward-desc').textContent = recompensas[diaMetaApp].desc;
-
-            // --- CARGAR HÁBITOS DE HOY ---
-            const datosHoy = datos[`dia_${diaActualApp}`] || {};
-            checkboxes.forEach(cb => {
-                if (datosHoy[cb.id] !== undefined) cb.checked = datosHoy[cb.id];
-            });
-
-            updateProgress(false); 
-            document.getElementById('loader').classList.add('hidden');
-        } else {
-            window.location.href = "index.html"; 
+    <script>
+        // Lógica visual de tareas (Local)
+        function toggleTask(element) {
+            element.classList.toggle('checked');
         }
-    });
-
-    async function updateProgress(shouldSave = true) {
-        const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-        const percentage = Math.round((checkedCount / checkboxes.length) * 100);
-        
-        circle.style.strokeDashoffset = 502 - (percentage / 100) * 502;
-        progressText.textContent = `${percentage}%`;
-
-        // LÓGICA INTELIGENTE DE RECOMPENSAS
-        if (percentage === 100) {
-            if (diaActualApp === diaMetaApp) {
-                // ¡LLEGÓ AL DÍA DE LA META (7, 14 o 21)!
-                rewardCard.classList.remove('opacity-60', 'grayscale', 'border-green-400', 'bg-green-50');
-                rewardCard.classList.add('border-amber-400', 'bg-white', 'shadow-2xl');
-                giftIcon.textContent = 'redeem';
-                giftIcon.classList.replace('text-slate-300', 'text-amber-500');
-                document.getElementById('btn-regalo').classList.remove('hidden');
-                document.getElementById('reward-desc').textContent = "¡Lo lograste! Reclama tu premio aquí abajo.";
-                localStorage.setItem('regalo_nivel', diaMetaApp);
-                localStorage.setItem('reto_completado', 'true');
-            } else {
-                // Terminó sus tareas, pero aún no es el día del premio (ej. Día 3)
-                rewardCard.classList.remove('opacity-60', 'grayscale', 'border-amber-400', 'bg-white', 'shadow-2xl');
-                rewardCard.classList.add('border-green-400', 'bg-green-50');
-                giftIcon.textContent = 'check_circle';
-                giftIcon.classList.replace('text-slate-300', 'text-green-500');
-                document.getElementById('reward-desc').textContent = "¡Excelente! Rutinas completadas por hoy. Sigue así hasta llegar a la meta.";
-                document.getElementById('btn-regalo').classList.add('hidden');
-            }
-        } else {
-            // No ha llegado al 100% hoy
-            rewardCard.classList.add('opacity-60', 'grayscale');
-            rewardCard.classList.remove('border-amber-400', 'bg-white', 'shadow-2xl', 'border-green-400', 'bg-green-50');
-            giftIcon.textContent = 'lock';
-            giftIcon.classList.replace('text-amber-500', 'text-slate-300');
-            giftIcon.classList.replace('text-green-500', 'text-slate-300');
-            document.getElementById('reward-desc').textContent = recompensas[diaMetaApp].desc;
-            document.getElementById('btn-regalo').classList.add('hidden');
-            localStorage.removeItem('reto_completado');
-        }
-
-        // GUARDAR EN LA BASE DE DATOS
-        if (shouldSave && auth.currentUser) {
-            const data = {};
-            checkboxes.forEach(cb => data[cb.id] = cb.checked);
-            try {
-                await setDoc(doc(db, "progreso", auth.currentUser.uid), {
-                    [`dia_${diaActualApp}`]: data
-                }, { merge: true });
-            } catch (e) {
-                console.error("Error al guardar:", e);
-            }
-        }
-    }
-
-    checkboxes.forEach(cb => cb.addEventListener('change', () => updateProgress(true)));
-    window.validarYEntrar = () => window.location.href = "Regalo.html";
-
-</script>
-</body></html>
+    </script>
+</body>
+</html>

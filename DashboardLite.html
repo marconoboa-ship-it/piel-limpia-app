@@ -115,12 +115,11 @@
             border: 1px solid #ffeeba;
         }
 
-        /* El nuevo círculo dinámico */
         .progress-circle {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background: conic-gradient(#eef2f6 100%, #eef2f6 0); /* Inicia vacío */
+            background: conic-gradient(#eef2f6 100%, #eef2f6 0); 
             margin: 20px auto;
             display: flex;
             justify-content: center;
@@ -129,11 +128,10 @@
             transition: background 0.3s ease;
         }
         
-        /* Hueco central blanco para hacer el efecto de dona */
         .progress-circle::before {
             content: "";
             position: absolute;
-            inset: 12px; /* Grosor de la barra */
+            inset: 12px; 
             background-color: var(--gris-fondo);
             border-radius: 50%;
         }
@@ -162,6 +160,21 @@
             margin-bottom: 15px; 
             display: block; 
             transition: all 0.3s;
+        }
+
+        .btn-recompensa {
+            background: linear-gradient(135deg, #D4AF37, #AA8222);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 12px;
+            margin-top: 15px;
+            display: none; /* Oculto por defecto */
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+            border: none;
+            cursor: pointer;
         }
 
         /* COLUMNA 3: CONSEJOS Y VIP */
@@ -275,7 +288,8 @@
                 <span class="lock-icon" id="lock-icon">🔒</span>
                 <div style="font-size: 11px; font-weight: 700; color: #bbb; text-transform: uppercase;">Hito: Semana 1</div>
                 <div style="font-size: 16px; font-weight: 700; margin: 5px 0;">Guía de Maquillaje Seguro</div>
-                <p style="font-size: 11px; color: #999;">Evita productos que obstruyan tus poros. Completa el 100% de hoy para desbloquear.</p>
+                <p id="hito-desc" style="font-size: 11px; color: #999;">Desbloquea al llegar al Día 7 de tu protocolo.</p>
+                <a href="Regalo.html" class="btn-recompensa" id="btn-recompensa">OBTENER RECOMPENSA</a>
             </div>
         </div>
 
@@ -317,42 +331,16 @@
 
     <script>
         function toggleTask(element) {
-            // Tachar la tarea
             element.classList.toggle('checked');
             
-            // Recalcular progreso
-            actualizarProgresoDiario();
-        }
-
-        function actualizarProgresoDiario() {
             const tareasTotales = document.querySelectorAll('.task-row').length;
             const tareasCompletadas = document.querySelectorAll('.task-row.checked').length;
             
-            // Calcular porcentaje exacto
             const porcentaje = Math.round((tareasCompletadas / tareasTotales) * 100);
-            
-            // Actualizar número en el centro
             document.getElementById('pct-text').innerText = porcentaje + '%';
             
-            // Pintar el círculo dinámicamente
             const circulo = document.getElementById('progress-circle');
             circulo.style.background = `conic-gradient(var(--verde-primario) ${porcentaje}%, #eef2f6 ${porcentaje}%)`;
-
-            // Efecto de desbloqueo al llegar a 100%
-            const candado = document.getElementById('lock-icon');
-            const tarjetaHito = document.getElementById('hito-card');
-
-            if(porcentaje === 100) {
-                candado.innerText = '🔓';
-                candado.style.color = 'var(--dorado)';
-                tarjetaHito.style.borderColor = 'var(--dorado)';
-                tarjetaHito.style.backgroundColor = '#fff9e6';
-            } else {
-                candado.innerText = '🔒';
-                candado.style.color = '#ddd';
-                tarjetaHito.style.borderColor = '#ddd';
-                tarjetaHito.style.backgroundColor = 'transparent';
-            }
         }
     </script>
 
@@ -395,9 +383,9 @@
             const today = new Date();
             const diffDays = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
             
-            // Solo actualiza el texto del día, el % inicial será 0%
             document.getElementById('day-text').innerText = `DÍA ${diffDays}`;
 
+            // 1. Generar Calendario
             for (let i = 1; i <= 21; i++) {
                 const box = document.createElement('div');
                 box.classList.add('day-box');
@@ -405,6 +393,21 @@
                 if (i < diffDays) box.classList.add('day-completed');
                 else if (i === diffDays) box.classList.add('day-active');
                 calendarEl.appendChild(box);
+            }
+
+            // 2. Lógica del Hito (Se abre solo si es el Día 7 o mayor)
+            if (diffDays >= 7) {
+                const candado = document.getElementById('lock-icon');
+                const tarjetaHito = document.getElementById('hito-card');
+                const btnRecompensa = document.getElementById('btn-recompensa');
+                const hitoDesc = document.getElementById('hito-desc');
+
+                candado.innerText = '🔓';
+                candado.style.color = 'var(--dorado)';
+                tarjetaHito.style.borderColor = 'var(--dorado)';
+                tarjetaHito.style.backgroundColor = '#fff9e6';
+                hitoDesc.innerText = '¡Felicidades! Has completado tu primera semana. Aquí está tu regalo:';
+                btnRecompensa.style.display = 'inline-block';
             }
         }
     </script>

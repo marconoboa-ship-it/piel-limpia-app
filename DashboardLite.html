@@ -1,354 +1,203 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control - Piel Limpia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --verde-primario: #1c5c32;
-            --verde-claro: #f4f7f6;
-            --dorado: #D4AF37;
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Piel Limpia - Portal Clínico</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: { extend: { colors: { "primary": "#1b6d24", "primary-container": "#a3f69c", "on-primary-container": "#065f18", "surface": "#f4f7f5", "on-surface": "#2d3435" } } }
         }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--verde-claro);
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-
-        /* BARRA SUPERIOR RESTAURADA (NAVBAR) */
-        .navbar {
-            background-color: white;
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-left img {
-            height: 40px; /* Logo a la izquierda */
-            object-fit: contain;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .user-email {
-            font-size: 13px;
-            color: #666;
-            font-weight: 500;
-        }
-
-        /* Botones Originales de la Navbar */
-        .btn-premium {
-            background: linear-gradient(135deg, #D4AF37, #AA8222);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 13px;
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
-            transition: transform 0.2s;
-        }
-
-        .btn-premium:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-logout {
-            background: transparent;
-            color: var(--verde-primario);
-            border: 1px solid var(--verde-primario);
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-logout:hover {
-            background: var(--verde-primario);
-            color: white;
-        }
-
-        /* CONTENEDOR PRINCIPAL AMPLIO */
-        .main-content {
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .dashboard-container {
-            width: 100%;
-            max-width: 700px; /* Más ancho, como un software real */
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            box-sizing: border-box;
-        }
-
-        /* Títulos y Progreso */
-        .header-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .header-title h2 {
-            font-size: 24px;
-            margin: 0;
-            color: #1a1a1a;
-        }
-
-        .progress-section {
-            margin-bottom: 35px;
-        }
-
-        .progress-bar-bg {
-            background: #e2e8f0;
-            height: 12px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        #progress-fill {
-            background: linear-gradient(90deg, #1c5c32, #2d8a4e);
-            height: 100%;
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-
-        /* Calendario de 21 Días Estable */
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr); 
-            gap: 15px; 
-            margin-bottom: 40px;
-        }
-
-        .day-box {
-            aspect-ratio: 1; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 16px;
-            border: 2px solid #eaeaea;
-            color: #bbb;
-            background-color: #fafafa;
-        }
-
-        .day-active {
-            border-color: var(--verde-primario);
-            color: var(--verde-primario);
-            background-color: #e6f0e9;
-            transform: scale(1.05); 
-            box-shadow: 0 4px 10px rgba(28, 92, 50, 0.15);
-        }
-
-        .day-completed {
-            background-color: var(--verde-primario);
-            color: white;
-            border-color: var(--verde-primario);
-        }
-
-        /* Tareas del Día (Limpias y elegantes) */
-        .task-list h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
-        }
-
-        .task-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 10px;
-            margin-bottom: 5px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-            font-size: 15px;
-            font-weight: 500;
-            color: #444;
-        }
-
-        .task-item:hover { background: #f8fafc; }
-
-        .checkbox {
-            width: 22px;
-            height: 22px;
-            border: 2px solid var(--verde-primario);
-            border-radius: 6px;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .checked .checkbox::after {
-            content: '✓';
-            color: var(--verde-primario);
-            font-weight: bold;
-            font-size: 16px;
-        }
-        
-        .checked span {
-            text-decoration: line-through;
-            color: #aaa;
-        }
-
-        /* Responsividad básica para celulares */
-        @media (max-width: 600px) {
-            .navbar { flex-direction: column; gap: 15px; padding: 15px; }
-            .nav-right { flex-wrap: wrap; justify-content: center; }
-            .user-email { display: none; } /* Ocultar correo en móvil para ahorrar espacio */
-            .calendar-grid { gap: 8px; }
-            .day-box { font-size: 13px; border-radius: 8px; }
-        }
-    </style>
+    </script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+    @media (min-width: 1024px) { .main-grid { display: grid; grid-template-columns: 280px 1fr 300px; gap: 2rem; align-items: start; } }
+</style>
 </head>
-<body>
+<body class="bg-surface font-body text-on-surface antialiased">
 
-    <nav class="navbar">
-        <div class="nav-left">
-            <img src="logo.png" alt="Piel Limpia">
-        </div>
-        <div class="nav-right">
-            <span class="user-email" id="display-email">Cargando usuario...</span>
-            <a href="Paywall.html" class="btn-premium">👑 Upgrade VIP</a>
-            <button id="btn-logout" class="btn-logout">Cerrar Sesión</button>
-        </div>
-    </nav>
-
-    <div class="main-content">
-        <div class="dashboard-container">
-            
-            <div class="header-title">
-                <h2 id="day-title">Día 1: Iniciando tu Protocolo</h2>
-            </div>
-
-            <div class="progress-section">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; font-weight: 700; color: #555;">
-                    <span>Tu Progreso General</span>
-                    <span id="progress-text">0%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div id="progress-fill"></div>
-                </div>
-            </div>
-
-            <div id="calendar" class="calendar-grid">
-                </div>
-
-            <div class="task-list" id="task-container">
-                <h3>Tareas de Hoy:</h3>
-                <div class="task-item" onclick="toggleTask(this)">
-                    <div class="checkbox"></div>
-                    <span>Limpieza Facial Am/Pm (Doble limpieza)</span>
-                </div>
-                <div class="task-item" onclick="toggleTask(this)">
-                    <div class="checkbox"></div>
-                    <span>Tomar Suplemento Control Acné</span>
-                </div>
-                <div class="task-item" onclick="toggleTask(this)">
-                    <div class="checkbox"></div>
-                    <span>Batido Detox / Nutrición Celular</span>
-                </div>
-            </div>
-
-        </div>
+<div id="loader" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
+    <div class="flex flex-col items-center gap-4">
+        <span class="material-symbols-outlined animate-spin text-primary text-5xl">autorenew</span>
+        <p class="text-xs font-bold tracking-widest text-primary uppercase">Sincronizando con la nube...</p>
     </div>
+</div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md flex justify-between items-center px-8 h-16 border-b border-slate-200">
+    <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-3xl">spa</span>
+        <span class="text-lg font-black tracking-tighter text-primary uppercase font-headline">Piel Limpia</span>
+    </div>
+    <div class="flex items-center gap-4">
+        <span id="user-email" class="text-xs font-medium text-slate-500 hidden md:block"></span>
+        <a href="Paywall.html" class="px-4 py-2 bg-primary-container text-on-primary-container rounded-lg text-[10px] font-black tracking-widest no-underline shadow-sm">UPGRADE PREMIUM</a>
+    </div>
+</header>
 
-        const firebaseConfig = {
-          apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
-          authDomain: "portal-piel-limpia.firebaseapp.com",
-          projectId: "portal-piel-limpia",
-          storageBucket: "portal-piel-limpia.firebasestorage.app",
-          messagingSenderId: "398053436634",
-          appId: "1:398053436634:web:08d83ef125b0f8080009e3"
-        };
+<div class="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
+    <div class="main-grid">
+        <aside class="order-2 lg:order-1">
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                <h3 class="text-[10px] font-black tracking-widest text-slate-400 uppercase mb-4">Calendario 21 Días</h3>
+                <div class="flex lg:grid lg:grid-cols-4 gap-2 overflow-x-auto lg:overflow-visible">
+                    <script>
+                        for(let i=1; i<=21; i++) {
+                            const activeClass = i <= 7 ? 'bg-primary text-white shadow-lg' : 'bg-slate-50 text-slate-400 border border-slate-100';
+                            document.write(`<div class="flex-shrink-0 w-12 h-12 lg:w-full lg:h-12 flex items-center justify-center rounded-xl font-bold text-sm ${activeClass}">${i}</div>`);
+                        }
+                    </script>
+                </div>
+            </div>
+        </aside>
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Seguridad y Mostrar Correo en la Barra
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                window.location.href = "index.html"; 
-            } else {
-                // AQUÍ RESTAURAMOS EL CORREO EN LA PARTE SUPERIOR DERECHA
-                document.getElementById('display-email').innerText = user.email;
-                inicializarDashboard(user);
-            }
-        });
-
-        document.getElementById('btn-logout').addEventListener('click', () => {
-            const btn = document.getElementById('btn-logout');
-            btn.innerText = "Saliendo...";
-            signOut(auth).then(() => {
-                window.location.href = "index.html";
-            }).catch((error) => console.error(error));
-        });
-
-        // Motor del Tiempo
-        function inicializarDashboard(user) {
-            const calendarEl = document.getElementById('calendar');
-            const creationTime = user.metadata.creationTime;
-            const startDate = new Date(creationTime);
-            const today = new Date();
-            
-            const diffTime = Math.abs(today - startDate);
-            const currentDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            document.getElementById('day-title').innerText = `Día ${currentDay}: Protocolo Activo`;
-
-            calendarEl.innerHTML = "";
-            for (let i = 1; i <= 21; i++) {
-                const dayBox = document.createElement('div');
-                dayBox.classList.add('day-box');
-                dayBox.innerText = i;
+        <main class="order-1 lg:order-2 space-y-6">
+            <section class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center relative overflow-hidden">
+                <div id="reward-badge" class="absolute top-4 right-4 bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-[10px] font-black tracking-widest flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">redeem</span> RECOMPENSA ACTIVA
+                </div>
+                <div class="relative flex items-center justify-center">
+                    <svg class="w-44 h-44 transform -rotate-90">
+                        <circle class="text-slate-100" cx="88" cy="88" fill="transparent" r="80" stroke="currentColor" stroke-width="10"></circle>
+                        <circle id="progress-circle" class="text-primary transition-all duration-1000" cx="88" cy="88" fill="transparent" r="80" stroke="currentColor" stroke-dasharray="502" stroke-dashoffset="502" stroke-width="10" stroke-linecap="round"></circle>
+                    </svg>
+                    <div class="absolute flex flex-col items-center">
+                        <span id="progress-text" class="font-headline font-black text-5xl text-on-surface">0%</span>
+                        <span id="label-dia" class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Día 7</span>
+                    </div>
+                </div>
+                <h2 id="titulo-dia" class="mt-6 font-headline font-extrabold text-2xl text-center">¡Casi llegas a tu hito!</h2>
                 
-                if (i < currentDay) dayBox.classList.add('day-completed');
-                else if (i === currentDay) dayBox.classList.add('day-active');
-                
-                calendarEl.appendChild(dayBox);
+                <div id="final-reward-card" class="mt-8 w-full bg-slate-50 rounded-3xl p-6 border-2 border-dashed border-slate-200 flex flex-col items-center text-center opacity-60 grayscale transition-all duration-700">
+                    <div class="bg-white w-16 h-16 rounded-full shadow-inner flex items-center justify-center mb-4"><span id="gift-icon" class="material-symbols-outlined text-4xl text-slate-300">lock</span></div>
+                    <div class="w-full">
+                        <h4 id="reward-week-label" class="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-1">Semana 1</h4>
+                        <h3 id="reward-title" class="font-headline font-bold text-lg text-slate-800 mb-2">Cargando meta...</h3>
+                        <p id="reward-desc" class="text-[11px] text-slate-500 mb-4 px-4 italic">Completa tus rutinas para desbloquear.</p>
+                        <button id="btn-regalo" onclick="validarYEntrar()" class="hidden w-full gold-gradient py-4 rounded-2xl text-white font-black tracking-widest text-[10px] uppercase shadow-xl hover:scale-105 transition-all">Reclamar Premio</button>
+                    </div>
+                </div>
+            </section>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <article class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="flex items-center gap-3 mb-6"><span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">light_mode</span><h3 class="font-bold text-sm uppercase tracking-tighter">Rutina Mañana</h3></div>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_m1" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Limpieza Gel No-Comedogénico</span></label>
+                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_m2" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Protector Solar FPS 50+</span></label>
+                    </div>
+                </article>
+                <article class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="flex items-center gap-3 mb-6"><span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">spa</span><h3 class="font-bold text-sm uppercase tracking-tighter">Hábitos Saludables</h3></div>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_h1" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Dieta Antiinflamatoria</span></label>
+                        <label class="flex items-center p-3 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100"><input id="check_h2" class="task-checkbox w-5 h-5 rounded border-slate-300 text-primary mr-3" type="checkbox"/><span class="text-xs font-medium">Sanitizar Smartphone</span></label>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
+      authDomain: "portal-piel-limpia.firebaseapp.com",
+      projectId: "portal-piel-limpia",
+      storageBucket: "portal-piel-limpia.firebasestorage.app",
+      messagingSenderId: "398053436634",
+      appId: "1:398053436634:web:08d83ef125b0f8080009e3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const diaActual = 7;
+    const recompensas = {
+        7: { titulo: "Guía de Maquillaje Seguro", desc: "Evita productos que obstruyen tus poros.", week: "Semana 1" },
+        14: { titulo: "Recetario Batidos Detox", desc: "Limpia tu hígado para sanar tu piel.", week: "Semana 2" },
+        21: { titulo: "Masterclass: Piel Eterna", desc: "Mantén tus resultados para siempre.", week: "Final" }
+    };
+
+    const checkboxes = document.querySelectorAll('.task-checkbox');
+    const circle = document.getElementById('progress-circle');
+    const progressText = document.getElementById('progress-text');
+    const rewardCard = document.getElementById('final-reward-card');
+    const giftIcon = document.getElementById('gift-icon');
+
+    // Cargar datos de Firestore al iniciar
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            document.getElementById('user-email').textContent = user.email;
+            document.getElementById('label-dia').textContent = `Día ${diaActual}`;
+            document.getElementById('reward-week-label').textContent = recompensas[diaActual].week;
+            document.getElementById('reward-title').textContent = recompensas[diaActual].titulo;
+            document.getElementById('reward-desc').textContent = recompensas[diaActual].desc;
+
+            // BUSCAR LA MEMORIA EN FIREBASE
+            const docRef = doc(db, "progreso", user.uid);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data()[`dia_${diaActual}`] || {};
+                checkboxes.forEach(cb => {
+                    if (data[cb.id] !== undefined) cb.checked = data[cb.id];
+                });
             }
-
-            const progress = Math.min(Math.round(((currentDay - 1) / 21) * 100), 100);
-            document.getElementById('progress-fill').style.width = progress + "%";
-            document.getElementById('progress-text').innerText = progress + "%";
+            updateProgress(false); // No guardar al cargar, solo mostrar
+            document.getElementById('loader').classList.add('hidden');
+        } else {
+            window.location.href = "index.html"; // Redirigir al inicio (index)
         }
-    </script>
+    });
 
-    <script>
-        function toggleTask(element) {
-            element.classList.toggle('checked');
+    // Guardar datos en Firestore cada vez que se hace clic
+    async function updateProgress(shouldSave = true) {
+        const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+        const percentage = Math.round((checkedCount / checkboxes.length) * 100);
+        
+        circle.style.strokeDashoffset = 502 - (percentage / 100) * 502;
+        progressText.textContent = `${percentage}%`;
+
+        if (percentage === 100) {
+            rewardCard.classList.remove('opacity-60', 'grayscale');
+            rewardCard.classList.add('border-amber-400', 'bg-white', 'shadow-2xl');
+            giftIcon.textContent = 'redeem';
+            document.getElementById('btn-regalo').classList.remove('hidden');
+            localStorage.setItem('regalo_nivel', diaActual);
+            localStorage.setItem('reto_completado', 'true');
+        } else {
+            document.getElementById('btn-regalo').classList.add('hidden');
+            localStorage.removeItem('reto_completado');
         }
-    </script>
-</body>
-</html>
+
+        // ¡AQUÍ ES DONDE HABLA CON LA BASE DE DATOS!
+        if (shouldSave && auth.currentUser) {
+            const data = {};
+            checkboxes.forEach(cb => data[cb.id] = cb.checked);
+            try {
+                await setDoc(doc(db, "progreso", auth.currentUser.uid), {
+                    [`dia_${diaActual}`]: data
+                }, { merge: true });
+                console.log("¡Progreso guardado en Firebase!");
+            } catch (e) {
+                console.error("Error al guardar:", e);
+            }
+        }
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', () => updateProgress(true)));
+    window.validarYEntrar = () => window.location.href = "Regalo.html";
+
+</script>
+</body></html>

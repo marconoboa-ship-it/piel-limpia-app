@@ -24,14 +24,14 @@
             min-height: 100vh;
         }
 
-        /* Contenedor Principal más compacto (Estilo App) */
+        /* Contenedor Principal: Amplio y Estable */
         .dashboard-container {
             width: 100%;
-            max-width: 420px; /* Más angosto para recuperar la armonía */
+            max-width: 550px; /* Ancho restaurado para mayor armonía */
             background: white;
-            padding: 40px 30px;
+            padding: 45px 40px;
             border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
             position: relative;
             box-sizing: border-box;
         }
@@ -39,14 +39,14 @@
         /* Botón Logout */
         #btn-logout {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 25px;
+            right: 25px;
             background: transparent;
             color: var(--verde-primario);
-            border: 1px solid var(--verde-primario);
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 11px;
+            border: 1.5px solid var(--verde-primario);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -60,29 +60,29 @@
         /* Encabezado */
         .header {
             text-align: center;
-            margin-bottom: 25px;
-            margin-top: 10px;
+            margin-bottom: 35px;
+            margin-top: 5px;
         }
 
         .header img {
-            max-width: 100px; /* Logo más sutil */
+            max-width: 120px;
             margin-bottom: 15px;
         }
         
         .header h2 {
-            font-size: 20px;
+            font-size: 22px;
             margin: 0;
             color: #1a1a1a;
         }
 
         /* Barra de Progreso */
         .progress-section {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .progress-bar-bg {
             background: #e2e8f0;
-            height: 10px;
+            height: 12px;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -94,25 +94,23 @@
             transition: width 0.5s ease;
         }
 
-        /* Calendario de 21 Días - Centrado y Compacto */
+        /* Calendario de 21 Días - Proporción Perfecta */
         .calendar-grid {
             display: grid;
-            grid-template-columns: repeat(7, 40px); /* Tamaño fijo para los cuadritos */
-            gap: 8px; /* Espaciado más delicado */
-            justify-content: center; /* Centra toda la cuadrícula en el medio */
-            margin-bottom: 30px;
+            grid-template-columns: repeat(7, 1fr); /* Se adapta al ancho disponible */
+            gap: 12px; /* Separación armónica */
+            margin-bottom: 35px;
         }
 
         .day-box {
-            width: 40px;
-            height: 40px;
+            aspect-ratio: 1; /* Mantiene la forma de cuadrado perfecto siempre */
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 700;
-            font-size: 13px;
-            border: 1.5px solid #eaeaea;
+            font-size: 15px;
+            border: 2px solid #eaeaea;
             color: #bbb;
             background-color: #fafafa;
         }
@@ -121,6 +119,8 @@
             border-color: var(--verde-primario);
             color: var(--verde-primario);
             background-color: #e6f0e9;
+            transform: scale(1.05); /* Efecto de resalte sutil */
+            box-shadow: 0 4px 10px rgba(28, 92, 50, 0.15);
         }
 
         .day-completed {
@@ -135,7 +135,7 @@
         }
 
         .task-list h3 {
-            font-size: 15px;
+            font-size: 16px;
             margin-bottom: 15px;
             color: #333;
         }
@@ -144,34 +144,39 @@
             display: flex;
             align-items: center;
             background: #f8fafc;
-            padding: 12px 15px; /* Más delgado */
-            margin-bottom: 8px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
             border-radius: 12px;
             cursor: pointer;
             transition: background 0.3s;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
             color: #444;
+            border: 1px solid transparent;
         }
 
-        .task-item:hover { background: #f0f4f1; }
+        .task-item:hover { 
+            background: #f0f4f1; 
+            border-color: #d1e0d5;
+        }
 
         .checkbox {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             border: 2px solid var(--verde-primario);
-            border-radius: 5px;
-            margin-right: 12px;
+            border-radius: 6px;
+            margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
         .checked .checkbox::after {
             content: '✓';
             color: var(--verde-primario);
             font-weight: bold;
-            font-size: 12px;
+            font-size: 14px;
         }
         
         .checked span {
@@ -181,17 +186,22 @@
 
         .vip-link {
             display: block;
-            margin-top: 30px;
+            margin-top: 35px;
             text-align: center;
             color: #D4AF37;
             text-decoration: none;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 14px;
             letter-spacing: 0.5px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #fafafa;
+            border: 1px dashed #D4AF37;
+            transition: all 0.3s;
         }
         
         .vip-link:hover {
-            text-decoration: underline;
+            background-color: #fff9e6;
         }
     </style>
 </head>
@@ -206,7 +216,7 @@
         </div>
 
         <div class="progress-section">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; font-weight: 700; color: #555;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; font-weight: 700; color: #555;">
                 <span>Progreso General</span>
                 <span id="progress-text">0%</span>
             </div>

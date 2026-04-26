@@ -101,4 +101,367 @@
         .day-active { border: 2px solid var(--verde-primario); color: var(--verde-primario); background: #eef5ef; }
 
         /* COLUMNA 2: PROGRESO CENTRAL INTERACTIVO */
-        .center-col
+        .center-col { text-align: center; position: relative; }
+        .reward-badge {
+            background: #fff9e6;
+            color: var(--dorado);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            position: absolute;
+            right: 0;
+            top: 0;
+            border: 1px solid #ffeeba;
+        }
+
+        .progress-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#eef2f6 100%, #eef2f6 0); 
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: background 0.3s ease;
+        }
+        
+        .progress-circle::before {
+            content: "";
+            position: absolute;
+            inset: 12px; 
+            background-color: var(--gris-fondo);
+            border-radius: 50%;
+        }
+
+        .progress-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .progress-content span { font-size: 32px; font-weight: 700; color: #333; }
+        .progress-content small { font-size: 11px; color: #999; }
+        
+        .hito-card {
+            margin-top: 30px;
+            border: 2px dashed #ddd;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .lock-icon { 
+            font-size: 30px; 
+            color: #ddd; 
+            margin-bottom: 15px; 
+            display: block; 
+            transition: all 0.3s;
+        }
+
+        .btn-recompensa {
+            background: linear-gradient(135deg, #D4AF37, #AA8222);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 12px;
+            margin-top: 15px;
+            display: none; 
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        /* COLUMNA 3: CONSEJOS Y VIP */
+        .advice-card { background: var(--verde-primario); color: white; border-radius: 20px; padding: 0; overflow: hidden; }
+        .advice-header { padding: 20px; display: flex; align-items: center; gap: 10px; }
+        .advice-body { background: white; color: #444; padding: 20px; margin: 10px; border-radius: 15px; font-size: 13px; line-height: 1.6; font-style: italic; }
+
+        .vip-card { margin-top: 20px; text-align: center; }
+        .btn-vip {
+            background: #0f172a;
+            color: white;
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            display: block;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 12px;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        .btn-vip:hover { transform: translateY(-2px); }
+
+        /* CHECKLISTS INFERIORES */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 0 40px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .checklist-title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; color: var(--verde-primario); margin-bottom: 20px; }
+        
+        .task-row {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 13px;
+            cursor: pointer; 
+            transition: background 0.3s;
+            user-select: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .task-row:hover { background: #f8fafc; }
+        
+        .checkbox-custom { 
+            width: 20px; 
+            height: 20px; 
+            border: 2px solid #ddd; 
+            border-radius: 5px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .task-row.checked .checkbox-custom { border-color: var(--verde-primario); }
+        .task-row.checked .checkbox-custom::after {
+            content: '✓';
+            color: var(--verde-primario);
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .task-row.checked span {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        /* ========================================================= */
+        /* MAGIA RESPONSIVE: ADAPTACIÓN PARA MÓVILES Y TABLETS       */
+        /* ========================================================= */
+        @media (max-width: 992px) {
+            /* 1. Navbar apilada y limpia */
+            .navbar {
+                flex-direction: column;
+                padding: 15px 20px;
+                gap: 15px;
+            }
+            .nav-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .user-email, .client-tag {
+                display: none; 
+            }
+
+            /* 2. Grid pasa de 3 columnas a 1 sola columna */
+            .main-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+                gap: 25px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* 3. El Círculo de Progreso sube al primer lugar */
+            .center-col {
+                order: -1; 
+                margin-bottom: 10px;
+            }
+            .reward-badge {
+                position: relative;
+                display: inline-block;
+                margin-bottom: 15px;
+            }
+
+            /* 4. Calendario a 7 días por fila para ahorrar alto de pantalla */
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
+            .day-box {
+                font-size: 12px;
+                border-radius: 8px;
+            }
+
+            /* 5. Checklists en 1 sola columna apilada */
+            .bottom-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <svg class="logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C12 22 4 16.14 4 9.5C4 5.36 7.36 2 11.5 2C13.56 2 15.42 2.82 16.78 4.18C18.14 5.54 19 7.41 19 9.5C19 16.14 12 22 12 22ZM11.5 4C8.46 4 6 6.46 6 9.5C6 14.39 10.96 19.06 12 20.03C13.04 19.06 17 14.39 17 9.5C17 6.46 14.54 4 11.5 4ZM11.5 12C10.12 12 9 10.88 9 9.5C9 8.12 10.12 7 11.5 7C12.88 7 14 8.12 14 9.5C14 10.88 12.88 12 11.5 12ZM11.5 9C11.22 9 11 9.22 11 9.5C11 9.78 11.22 10 11.5 10C11.78 10 12 9.78 12 9.5C12 9.22 11.78 9 11.5 9Z"/>
+            </svg>
+            <span class="logo-text">PIEL LIMPIA</span>
+        </div>
+        <div class="nav-right">
+            <span class="client-tag">USUARIO</span>
+            <span class="user-email" id="user-email">Cargando...</span>
+            <a href="Paywall.html" class="btn-upgrade">UPGRADE PREMIUM</a>
+            <button id="btn-logout" class="btn-logout">CERRAR SESIÓN</button>
+        </div>
+    </nav>
+
+    <div class="main-grid">
+        <div class="card">
+            <div class="calendar-title">Calendario 21 Días</div>
+            <div class="calendar-grid" id="calendar"></div>
+        </div>
+
+        <div class="center-col">
+            <div class="reward-badge">🎁 RECOMPENSA DE SEMANA</div>
+            
+            <div class="progress-circle" id="progress-circle">
+                <div class="progress-content">
+                    <span id="pct-text">0%</span>
+                    <small id="day-text">DÍA 0</small>
+                </div>
+            </div>
+
+            <h3>¡Casi llegas a tu próximo hito!</h3>
+            
+            <div class="hito-card" id="hito-card">
+                <span class="lock-icon" id="lock-icon">🔒</span>
+                <div style="font-size: 11px; font-weight: 700; color: #bbb; text-transform: uppercase;">Hito: Semana 1</div>
+                <div style="font-size: 16px; font-weight: 700; margin: 5px 0;">Guía de Maquillaje Seguro</div>
+                <p id="hito-desc" style="font-size: 11px; color: #999;">Desbloquea al llegar al Día 7 de tu protocolo.</p>
+                <a href="Regalo.html" class="btn-recompensa" id="btn-recompensa">OBTENER RECOMPENSA</a>
+            </div>
+        </div>
+
+        <div>
+            <div class="advice-card">
+                <div class="advice-header">💡 <strong>Consejo Clínico</strong></div>
+                <div class="advice-body">
+                    "La constancia vence a la genética. Sigue tu protocolo y verás cómo la inflamación cede semana a semana."
+                </div>
+            </div>
+            <div class="card vip-card">
+                <div style="font-size: 11px; font-weight: 700; color: #bbb; text-transform: uppercase;">Atención Personalizada</div>
+                <p style="font-size: 13px; color: #666; margin: 10px 0;">¿Brote inesperado? Desbloquea el chat directo con especialistas.</p>
+                <a href="Paywall.html" class="btn-vip">ACCESO PREMIUM VIP</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-grid">
+        <div class="card">
+            <div class="checklist-title">☀️ Rutina Mañana</div>
+            <div class="task-row" onclick="toggleTask(this)">
+                <div class="checkbox-custom"></div> <span>Limpieza Gel No-Comedogénico</span>
+            </div>
+            <div class="task-row" onclick="toggleTask(this)">
+                <div class="checkbox-custom"></div> <span>Protector Solar FPS 50+</span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="checklist-title">🍃 Hábitos Saludables</div>
+            <div class="task-row" onclick="toggleTask(this)">
+                <div class="checkbox-custom"></div> <span>Dieta Antiinflamatoria</span>
+            </div>
+            <div class="task-row" onclick="toggleTask(this)">
+                <div class="checkbox-custom"></div> <span>Sanitizar Smartphone</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTask(element) {
+            element.classList.toggle('checked');
+            
+            const tareasTotales = document.querySelectorAll('.task-row').length;
+            const tareasCompletadas = document.querySelectorAll('.task-row.checked').length;
+            
+            const porcentaje = Math.round((tareasCompletadas / tareasTotales) * 100);
+            document.getElementById('pct-text').innerText = porcentaje + '%';
+            
+            const circulo = document.getElementById('progress-circle');
+            circulo.style.background = `conic-gradient(var(--verde-primario) ${porcentaje}%, #eef2f6 ${porcentaje}%)`;
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
+          authDomain: "portal-piel-limpia.firebaseapp.com",
+          projectId: "portal-piel-limpia",
+          storageBucket: "portal-piel-limpia.firebasestorage.app",
+          messagingSenderId: "398053436634",
+          appId: "1:398053436634:web:08d83ef125b0f8080009e3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "index.html";
+            } else {
+                document.getElementById('user-email').innerText = user.email;
+                renderDashboard(user);
+            }
+        });
+
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            const btn = document.getElementById('btn-logout');
+            btn.innerText = "SALIENDO...";
+            signOut(auth).then(() => {
+                window.location.href = "index.html";
+            }).catch((error) => console.error(error));
+        });
+
+        function renderDashboard(user) {
+            const calendarEl = document.getElementById('calendar');
+            const startDate = new Date(user.metadata.creationTime);
+            const today = new Date();
+            const diffDays = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
+            
+            document.getElementById('day-text').innerText = `DÍA ${diffDays}`;
+
+            for (let i = 1; i <= 21; i++) {
+                const box = document.createElement('div');
+                box.classList.add('day-box');
+                box.innerText = i;
+                if (i < diffDays) box.classList.add('day-completed');
+                else if (i === diffDays) box.classList.add('day-active');
+                calendarEl.appendChild(box);
+            }
+
+            if (diffDays >= 7) {
+                const candado = document.getElementById('lock-icon');
+                const tarjetaHito = document.getElementById('hito-card');
+                const btnRecompensa = document.getElementById('btn-recompensa');
+                const hitoDesc = document.getElementById('hito-desc');
+
+                candado.innerText = '🔓';
+                candado.style.color = 'var(--dorado)';
+                tarjetaHito.style.borderColor = 'var(--dorado)';
+                tarjetaHito.style.backgroundColor = '#fff9e6';
+                hitoDesc.innerText = '¡Felicidades! Has completado tu primera semana. Aquí está tu regalo:';
+                btnRecompensa.style.display = 'inline-block';
+            }
+        }
+    </script>
+</body>
+</html>

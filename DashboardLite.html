@@ -9,76 +9,115 @@
         :root {
             --verde-primario: #1c5c32;
             --verde-claro: #f4f7f6;
-            --gris-texto: #555;
+            --dorado: #D4AF37;
         }
 
-        /* AJUSTE CLAVE 1: Permitir el scroll natural sin cortar arriba/abajo */
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--verde-claro);
             margin: 0;
-            padding: 40px 20px; /* Aire arriba y abajo para que nada se pegue a los bordes */
+            padding: 0;
             color: #333;
+        }
+
+        /* BARRA SUPERIOR RESTAURADA (NAVBAR) */
+        .navbar {
+            background-color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-left img {
+            height: 40px; /* Logo a la izquierda */
+            object-fit: contain;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-email {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Botones Originales de la Navbar */
+        .btn-premium {
+            background: linear-gradient(135deg, #D4AF37, #AA8222);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-logout {
+            background: transparent;
+            color: var(--verde-primario);
+            border: 1px solid var(--verde-primario);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: var(--verde-primario);
+            color: white;
+        }
+
+        /* CONTENEDOR PRINCIPAL AMPLIO */
+        .main-content {
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Evita que el centro esconda las puntas */
-            min-height: 100vh;
-            box-sizing: border-box;
         }
 
         .dashboard-container {
             width: 100%;
-            max-width: 550px; 
+            max-width: 700px; /* Más ancho, como un software real */
             background: white;
             padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
             box-sizing: border-box;
         }
 
-        /* AJUSTE CLAVE 2: Contenedor superior ordenado para el botón */
-        .top-action {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 5px;
-        }
-
-        #btn-logout {
-            background: transparent;
-            color: var(--verde-primario);
-            border: 1.5px solid var(--verde-primario);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        #btn-logout:hover {
-            background-color: var(--verde-primario);
-            color: white;
-        }
-
-        /* Encabezado */
-        .header {
+        /* Títulos y Progreso */
+        .header-title {
             text-align: center;
-            margin-bottom: 35px;
-        }
-
-        /* AJUSTE CLAVE 3: Logo más grande y presente */
-        .header img {
-            max-width: 170px; 
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         
-        .header h2 {
-            font-size: 22px;
+        .header-title h2 {
+            font-size: 24px;
             margin: 0;
             color: #1a1a1a;
         }
 
-        /* Barra de Progreso */
         .progress-section {
             margin-bottom: 35px;
         }
@@ -97,12 +136,12 @@
             transition: width 0.5s ease;
         }
 
-        /* Calendario de 21 Días */
+        /* Calendario de 21 Días Estable */
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr); 
-            gap: 12px; 
-            margin-bottom: 35px;
+            gap: 15px; 
+            margin-bottom: 40px;
         }
 
         .day-box {
@@ -112,7 +151,7 @@
             justify-content: center;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 16px;
             border: 2px solid #eaeaea;
             color: #bbb;
             background-color: #fafafa;
@@ -132,40 +171,32 @@
             border-color: var(--verde-primario);
         }
 
-        /* Tareas del Día */
-        .task-list {
-            text-align: left;
-        }
-
+        /* Tareas del Día (Limpias y elegantes) */
         .task-list h3 {
-            font-size: 16px;
-            margin-bottom: 15px;
-            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
         }
 
         .task-item {
             display: flex;
             align-items: center;
-            background: #f8fafc;
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            border-radius: 12px;
+            padding: 12px 10px;
+            margin-bottom: 5px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background 0.3s;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 500;
             color: #444;
-            border: 1px solid transparent;
         }
 
-        .task-item:hover { 
-            background: #f0f4f1; 
-            border-color: #d1e0d5;
-        }
+        .task-item:hover { background: #f8fafc; }
 
         .checkbox {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border: 2px solid var(--verde-primario);
             border-radius: 6px;
             margin-right: 15px;
@@ -179,86 +210,74 @@
             content: '✓';
             color: var(--verde-primario);
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
         }
         
         .checked span {
             text-decoration: line-through;
-            color: #999;
+            color: #aaa;
         }
 
-        .vip-link {
-            display: block;
-            margin-top: 35px;
-            text-align: center;
-            color: #D4AF37;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-            padding: 15px;
-            border-radius: 10px;
-            background-color: #fafafa;
-            border: 1px dashed #D4AF37;
-            transition: all 0.3s;
-        }
-        
-        .vip-link:hover {
-            background-color: #fff9e6;
+        /* Responsividad básica para celulares */
+        @media (max-width: 600px) {
+            .navbar { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-right { flex-wrap: wrap; justify-content: center; }
+            .user-email { display: none; } /* Ocultar correo en móvil para ahorrar espacio */
+            .calendar-grid { gap: 8px; }
+            .day-box { font-size: 13px; border-radius: 8px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="dashboard-container">
-        
-        <div class="top-action">
-            <button id="btn-logout">Cerrar Sesión</button>
-        </div>
-        
-        <div class="header">
+    <nav class="navbar">
+        <div class="nav-left">
             <img src="logo.png" alt="Piel Limpia">
-            <h2 id="day-title">Día 1: Iniciando tu Protocolo</h2>
         </div>
-
-        <div class="progress-section">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; font-weight: 700; color: #555;">
-                <span>Progreso General</span>
-                <span id="progress-text">0%</span>
-            </div>
-            <div class="progress-bar-bg">
-                <div id="progress-fill"></div>
-            </div>
+        <div class="nav-right">
+            <span class="user-email" id="display-email">Cargando usuario...</span>
+            <a href="Paywall.html" class="btn-premium">👑 Upgrade VIP</a>
+            <button id="btn-logout" class="btn-logout">Cerrar Sesión</button>
         </div>
+    </nav>
 
-        <div id="calendar" class="calendar-grid">
+    <div class="main-content">
+        <div class="dashboard-container">
+            
+            <div class="header-title">
+                <h2 id="day-title">Día 1: Iniciando tu Protocolo</h2>
             </div>
 
-        <div class="task-list" id="task-container">
-            <h3>Tareas Clínicas de Hoy:</h3>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="checkbox"></div>
-                <span>Limpieza Facial Am/Pm (Doble limpieza)</span>
+            <div class="progress-section">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; font-weight: 700; color: #555;">
+                    <span>Tu Progreso General</span>
+                    <span id="progress-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="progress-fill"></div>
+                </div>
             </div>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="checkbox"></div>
-                <span>Tomar Suplemento Control Acné</span>
+
+            <div id="calendar" class="calendar-grid">
+                </div>
+
+            <div class="task-list" id="task-container">
+                <h3>Tareas de Hoy:</h3>
+                <div class="task-item" onclick="toggleTask(this)">
+                    <div class="checkbox"></div>
+                    <span>Limpieza Facial Am/Pm (Doble limpieza)</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                    <div class="checkbox"></div>
+                    <span>Tomar Suplemento Control Acné</span>
+                </div>
+                <div class="task-item" onclick="toggleTask(this)">
+                    <div class="checkbox"></div>
+                    <span>Batido Detox / Nutrición Celular</span>
+                </div>
             </div>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="checkbox"></div>
-                <span>Beber 2 Litros de Agua Mineral</span>
-            </div>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="checkbox"></div>
-                <span>Cero Lácteos y Azúcar Refinada hoy</span>
-            </div>
-            <div class="task-item" onclick="toggleTask(this)">
-                <div class="checkbox"></div>
-                <span>Batido Detox / Nutrición Celular</span>
-            </div>
+
         </div>
-
-        <a href="Paywall.html" class="vip-link">✨ DESBLOQUEAR ACOMPAÑAMIENTO VIP ✨</a>
     </div>
 
     <script type="module">
@@ -277,11 +296,13 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Seguridad y Logout
+        // Seguridad y Mostrar Correo en la Barra
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "index.html"; 
             } else {
+                // AQUÍ RESTAURAMOS EL CORREO EN LA PARTE SUPERIOR DERECHA
+                document.getElementById('display-email').innerText = user.email;
                 inicializarDashboard(user);
             }
         });

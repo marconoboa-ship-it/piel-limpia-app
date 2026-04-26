@@ -66,7 +66,7 @@
         }
         .btn-logout:hover { background: var(--verde-primario); color: white; }
 
-        /* GRID PRINCIPAL */
+        /* GRID PRINCIPAL (Desktop) */
         .main-grid {
             display: grid;
             grid-template-columns: 280px 1fr 280px;
@@ -171,7 +171,7 @@
             font-weight: 700;
             font-size: 12px;
             margin-top: 15px;
-            display: none; /* Oculto por defecto */
+            display: none; 
             box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
             border: none;
             cursor: pointer;
@@ -246,6 +246,60 @@
         .task-row.checked span {
             text-decoration: line-through;
             color: #999;
+        }
+
+        /* ========================================================= */
+        /* MAGIA RESPONSIVE: ADAPTACIÓN PARA MÓVILES Y TABLETS       */
+        /* ========================================================= */
+        @media (max-width: 992px) {
+            /* 1. Navbar apilada y limpia */
+            .navbar {
+                flex-direction: column;
+                padding: 15px 20px;
+                gap: 15px;
+            }
+            .nav-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .user-email, .client-tag {
+                display: none; /* Ocultamos textos innecesarios para ahorrar espacio */
+            }
+
+            /* 2. Grid pasa de 3 columnas a 1 sola columna */
+            .main-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+                gap: 25px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* 3. El Círculo de Progreso sube al primer lugar (Psicología UX) */
+            .center-col {
+                order: -1; 
+                margin-bottom: 10px;
+            }
+            .reward-badge {
+                position: relative;
+                display: inline-block;
+                margin-bottom: 15px;
+            }
+
+            /* 4. Calendario a 7 días por fila para ahorrar alto de pantalla */
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
+            .day-box {
+                font-size: 12px;
+                border-radius: 8px;
+            }
+
+            /* 5. Checklists en 1 sola columna apilada */
+            .bottom-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px 30px;
+            }
         }
     </style>
 </head>
@@ -385,7 +439,6 @@
             
             document.getElementById('day-text').innerText = `DÍA ${diffDays}`;
 
-            // 1. Generar Calendario
             for (let i = 1; i <= 21; i++) {
                 const box = document.createElement('div');
                 box.classList.add('day-box');
@@ -395,7 +448,6 @@
                 calendarEl.appendChild(box);
             }
 
-            // 2. Lógica del Hito (Se abre solo si es el Día 7 o mayor)
             if (diffDays >= 7) {
                 const candado = document.getElementById('lock-icon');
                 const tarjetaHito = document.getElementById('hito-card');

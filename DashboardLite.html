@@ -21,6 +21,23 @@
 </style>
 </head>
 <body class="bg-surface font-body text-on-surface antialiased">
+        <button id="btn-logout" style="position: absolute; top: 20px; right: 20px; background-color: #1c5c32; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(28, 92, 50, 0.3); transition: transform 0.2s;">
+    Cerrar Sesión
+</button>
+
+<script type="module">
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+    const auth = getAuth();
+    
+    document.getElementById('btn-logout').addEventListener('click', () => {
+        document.getElementById('btn-logout').innerText = "Saliendo...";
+        signOut(auth).then(() => {
+            window.location.href = "index.html"; // Expulsa al usuario a la página de inicio
+        }).catch((error) => {
+            console.error("Error al cerrar sesión", error);
+        });
+    });
+</script>
 
 <div id="loader" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
     <div class="flex flex-col items-center gap-4">

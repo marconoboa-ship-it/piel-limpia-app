@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piel Limpia - Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --verde-primario: #1c5c32;
@@ -22,19 +22,44 @@
             color: #333;
         }
 
-        /* NAVBAR */
+        /* NAVBAR PREMIUM */
         .navbar {
             background: white;
-            padding: 10px 40px;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .nav-left img { height: 35px; }
-        .nav-right { display: flex; align-items: center; gap: 15px; }
+        
+        .nav-left { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        
+        .logo-icon { 
+            width: 35px; 
+            height: 35px; 
+            fill: var(--verde-primario); 
+        }
+        
+        .logo-text { 
+            font-size: 20px; 
+            font-weight: 800; 
+            color: var(--verde-primario); 
+            letter-spacing: 0.5px; 
+        }
+
+        .nav-right { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        
         .client-tag { font-size: 11px; font-weight: 700; color: #999; letter-spacing: 1px; }
-        .user-email { font-size: 13px; font-weight: 500; color: #444; }
+        .user-email { font-size: 13px; font-weight: 500; color: #444; margin-right: 10px; }
+        
         .btn-upgrade {
             background-color: var(--verde-boton);
             color: #1c5c32;
@@ -44,6 +69,24 @@
             font-weight: 700;
             font-size: 12px;
             text-transform: uppercase;
+            transition: transform 0.2s;
+        }
+        .btn-upgrade:hover { transform: translateY(-2px); }
+
+        .btn-logout {
+            background: transparent;
+            color: var(--verde-primario);
+            border: 1.5px solid var(--verde-primario);
+            padding: 7px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-logout:hover {
+            background: var(--verde-primario);
+            color: white;
         }
 
         /* GRID PRINCIPAL */
@@ -98,7 +141,7 @@
             width: 150px;
             height: 150px;
             border: 12px solid #eef2f6;
-            border-top: 12px solid #3b5998; /* Color azulado del círculo en tu imagen */
+            border-top: 12px solid #3b5998; 
             border-radius: 50%;
             margin: 20px auto;
             display: flex;
@@ -135,9 +178,11 @@
             font-weight: 700;
             font-size: 12px;
             margin-top: 20px;
+            transition: transform 0.2s;
         }
+        .btn-vip:hover { transform: translateY(-2px); }
 
-        /* CHECKLISTS INFERIORES */
+        /* CHECKLISTS INFERIORES (FUNCIONALES) */
         .bottom-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -146,7 +191,8 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-        .checklist-title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; color: #1c5c32; margin-bottom: 20px; }
+        .checklist-title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; color: var(--verde-primario); margin-bottom: 20px; }
+        
         .task-row {
             background: #f8fafc;
             padding: 15px 20px;
@@ -156,18 +202,51 @@
             align-items: center;
             gap: 15px;
             font-size: 13px;
+            cursor: pointer; /* Indica que se puede hacer clic */
+            transition: background 0.3s;
+            user-select: none;
         }
-        .checkbox-custom { width: 18px; height: 18px; border: 2px solid #ddd; border-radius: 4px; }
+        .task-row:hover { background: #f0f4f1; }
+        
+        .checkbox-custom { 
+            width: 20px; 
+            height: 20px; 
+            border: 2px solid #ddd; 
+            border-radius: 5px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Efecto Visual al hacer clic (Tachar) */
+        .task-row.checked .checkbox-custom { border-color: var(--verde-primario); }
+        .task-row.checked .checkbox-custom::after {
+            content: '✓';
+            color: var(--verde-primario);
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .task-row.checked span {
+            text-decoration: line-through;
+            color: #999;
+        }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="nav-left"><img src="logo.png" alt="Piel Limpia"></div>
+        <div class="nav-left">
+            <svg class="logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C12 22 4 16.14 4 9.5C4 5.36 7.36 2 11.5 2C13.56 2 15.42 2.82 16.78 4.18C18.14 5.54 19 7.41 19 9.5C19 16.14 12 22 12 22ZM11.5 4C8.46 4 6 6.46 6 9.5C6 14.39 10.96 19.06 12 20.03C13.04 19.06 17 14.39 17 9.5C17 6.46 14.54 4 11.5 4ZM11.5 12C10.12 12 9 10.88 9 9.5C9 8.12 10.12 7 11.5 7C12.88 7 14 8.12 14 9.5C14 10.88 12.88 12 11.5 12ZM11.5 9C11.22 9 11 9.22 11 9.5C11 9.78 11.22 10 11.5 10C11.78 10 12 9.78 12 9.5C12 9.22 11.78 9 11.5 9Z"/>
+            </svg>
+            <span class="logo-text">PIEL LIMPIA</span>
+        </div>
         <div class="nav-right">
             <span class="client-tag">CLIENTE</span>
             <span class="user-email" id="user-email">Cargando...</span>
             <a href="Paywall.html" class="btn-upgrade">UPGRADE PREMIUM</a>
+            <button id="btn-logout" class="btn-logout">CERRAR SESIÓN</button>
         </div>
     </nav>
 
@@ -211,19 +290,34 @@
     <div class="bottom-grid">
         <div class="card">
             <div class="checklist-title">☀️ Rutina Mañana</div>
-            <div class="task-row"><div class="checkbox-custom"></div> Limpieza Gel No-Comedogénico</div>
-            <div class="task-row"><div class="checkbox-custom"></div> Protector Solar FPS 50+</div>
+            <div class="task-row" onclick="toggleTask(this)">
+                <div class="checkbox-custom"></div> <span>Limpieza Gel No-Comedogénico</span>
+            </div>
+            <div class="task-row" onclick="toggleTask(this)">
+                <div class="checkbox-custom"></div> <span>Protector Solar FPS 50+</span>
+            </div>
         </div>
         <div class="card">
             <div class="checklist-title">🍃 Hábitos Saludables</div>
-            <div class="task-row"><div class="checkbox-custom"></div> Dieta Antiinflamatoria</div>
-            <div class="task-row"><div class="checkbox-custom"></div> Sanitizar Smartphone</div>
+            <div class="task-row" onclick="toggleTask(this)">
+                <div class="checkbox-custom"></div> <span>Dieta Antiinflamatoria</span>
+            </div>
+            <div class="task-row" onclick="toggleTask(this)">
+                <div class="checkbox-custom"></div> <span>Sanitizar Smartphone</span>
+            </div>
         </div>
     </div>
 
+    <script>
+        // Función para marcar las tareas (Click)
+        function toggleTask(element) {
+            element.classList.toggle('checked');
+        }
+    </script>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
@@ -237,6 +331,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // Control de Sesión
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "index.html";
@@ -246,6 +341,16 @@
             }
         });
 
+        // Botón Logout Restaurado
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            const btn = document.getElementById('btn-logout');
+            btn.innerText = "SALIENDO...";
+            signOut(auth).then(() => {
+                window.location.href = "index.html";
+            }).catch((error) => console.error(error));
+        });
+
+        // Motor del Tiempo
         function renderDashboard(user) {
             const calendarEl = document.getElementById('calendar');
             const startDate = new Date(user.metadata.creationTime);

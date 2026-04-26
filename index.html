@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -7,10 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Estética Clínica Premium */
+        /* Estética Clínica Premium unificada con el logo */
         body {
             font-family: 'Montserrat', sans-serif;
-            /* Fondo con un degradado sutil y elegante */
             background: linear-gradient(135deg, #e6f0f0 0%, #f4f7f6 100%);
             display: flex;
             justify-content: center;
@@ -29,37 +28,28 @@
 
         .login-container {
             background-color: rgba(255, 255, 255, 0.95);
-            padding: 50px 40px;
+            padding: 40px 40px; /* Un poco menos de padding arriba por el logo */
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(44, 122, 123, 0.1), 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 15px 35px rgba(28, 92, 50, 0.1), 0 5px 15px rgba(0,0,0,0.05); /* Sombra con toque verde del logo */
             text-align: center;
             backdrop-filter: blur(10px);
         }
 
-        /* --- SECCIÓN DEL LOGO --- */
+        /* --- SECCIÓN DEL LOGO ACTUALIZADA --- */
         .logo-container {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
-        /* INSTRUCCIÓN: Si quieres usar tu propio logo, borra el <svg> abajo 
-           y usa una etiqueta de imagen como esta:
-           <img src="URL_DE_TU_LOGO.png" alt="Piel Limpia" width="80"> 
-        */
-        .logo-icon {
-            width: 60px;
-            height: 60px;
-            fill: #2c7a7b; /* Color verde clínico */
-            margin: 0 auto;
+        .logo-img {
+            max-width: 180px; /* Ajuste para que se vea elegante pero no gigante */
+            height: auto;
+            display: block;
         }
 
-        .logo-text {
-            font-size: 26px;
-            font-weight: 700;
-            color: #1a4a4a; /* Verde más oscuro */
-            margin-bottom: 8px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
+        /* Eliminamos logo-text y logo-icon porque ya están integrados en la imagen */
         
         .subtitle {
             font-size: 14px;
@@ -68,7 +58,7 @@
             font-weight: 400;
         }
 
-        /* --- FORMULARIO --- */
+        /* --- FORMULARIO CON TONOS UNIFICADOS CON EL LOGO --- */
         .input-group {
             margin-bottom: 20px;
             text-align: left;
@@ -79,7 +69,7 @@
             display: block;
             font-size: 12px;
             margin-bottom: 8px;
-            color: #555;
+            color: #1c5c32; /* El color verde oscuro del logo para los labels */
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -98,16 +88,17 @@
         }
         
         .input-group input:focus {
-            border-color: #2c7a7b;
+            border-color: #1c5c32; /* Verde oscuro del logo en el focus */
             background-color: #fff;
             outline: none;
-            box-shadow: 0 0 0 4px rgba(44, 122, 123, 0.1);
+            box-shadow: 0 0 0 4px rgba(28, 92, 50, 0.1);
         }
 
-        /* --- BOTÓN PRINCIPAL --- */
+        /* --- BOTÓN PRINCIPAL CON DEGRADADO VERDE DEL LOGO --- */
         .btn-main {
             width: 100%;
-            background: linear-gradient(135deg, #2c7a7b, #1f5e5e);
+            /* Un degradado elegante usando los tonos de verde de tu logo */
+            background: linear-gradient(135deg, #1c5c32, #113f21);
             color: white;
             border: none;
             padding: 16px;
@@ -119,12 +110,12 @@
             margin-top: 10px;
             margin-bottom: 25px;
             letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(44, 122, 123, 0.3);
+            box-shadow: 0 4px 15px rgba(28, 92, 50, 0.3);
         }
         
         .btn-main:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(44, 122, 123, 0.4);
+            box-shadow: 0 6px 20px rgba(28, 92, 50, 0.4);
         }
 
         /* --- TEXTO DE CAMBIO (LOGIN/REGISTRO) --- */
@@ -136,14 +127,14 @@
         }
         
         .toggle-text span {
-            color: #2c7a7b;
+            color: #1c5c32; /* Verde oscuro del logo */
             font-weight: 700;
             cursor: pointer;
             transition: color 0.3s;
         }
         
         .toggle-text span:hover {
-            color: #1a4a4a;
+            color: #113f21;
             text-decoration: underline;
         }
         
@@ -165,13 +156,10 @@
     <div class="login-wrapper">
         <div class="login-container">
             
-            <div class="logo-container" id="logo-box">
-                <svg class="logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 22C12 22 4 16.14 4 9.5C4 5.36 7.36 2 11.5 2C13.56 2 15.42 2.82 16.78 4.18C18.14 5.54 19 7.41 19 9.5C19 16.14 12 22 12 22ZM11.5 4C8.46 4 6 6.46 6 9.5C6 14.39 10.96 19.06 12 20.03C13.04 19.06 17 14.39 17 9.5C17 6.46 14.54 4 11.5 4ZM11.5 12C10.12 12 9 10.88 9 9.5C9 8.12 10.12 7 11.5 7C12.88 7 14 8.12 14 9.5C14 10.88 12.88 12 11.5 12ZM11.5 9C11.22 9 11 9.22 11 9.5C11 9.78 11.22 10 11.5 10C11.78 10 12 9.78 12 9.5C12 9.22 11.78 9 11.5 9Z"/>
-                </svg>
-                </div>
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo Piel Limpia" class="logo-img">
+            </div>
 
-            <div class="logo-text">PIEL LIMPIA</div>
             <div class="subtitle" id="form-subtitle">Ingresa a tu clínica digital</div>
 
             <form id="auth-form">
@@ -199,6 +187,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 
+        // NOTA: Para producción real, estas llaves deben protegerse, pero para este prototipo MVP están bien aquí.
         const firebaseConfig = {
           apiKey: "AIzaSyBR-Mh0UMUWuTC1kAj2TRc9Zz9z94VDoYQ",
           authDomain: "portal-piel-limpia.firebaseapp.com",
@@ -224,11 +213,11 @@
             if (isLogin) {
                 subtitle.innerText = "Ingresa a tu clínica digital";
                 submitBtn.innerText = "Entrar al Reto";
-                toggleContainer.innerHTML = '¿No tienes cuenta? <span id="toggle-btn" style="color: #2c7a7b; font-weight: 700; cursor: pointer;">Regístrate gratis aquí</span>';
+                toggleContainer.innerHTML = '¿No tienes cuenta? <span id="toggle-btn" style="color: #1c5c32; font-weight: 700; cursor: pointer;">Regístrate gratis aquí</span>';
             } else {
                 subtitle.innerText = "Comienza tu transformación de 21 días";
                 submitBtn.innerText = "Crear Mi Cuenta Gratis";
-                toggleContainer.innerHTML = '¿Ya tienes cuenta? <span id="toggle-btn" style="color: #2c7a7b; font-weight: 700; cursor: pointer;">Inicia sesión aquí</span>';
+                toggleContainer.innerHTML = '¿Ya tienes cuenta? <span id="toggle-btn" style="color: #1c5c32; font-weight: 700; cursor: pointer;">Inicia sesión aquí</span>';
             }
             
             document.getElementById('toggle-btn').addEventListener('click', toggleBtn.click);
@@ -258,7 +247,6 @@
                         window.location.href = "DashboardLite.html";
                     })
                     .catch((error) => {
-                        // Traducción de errores comunes de Firebase
                         let mensaje = "Ocurrió un error. Intenta de nuevo.";
                         if(error.code === 'auth/email-already-in-use') mensaje = "Este correo ya está registrado.";
                         if(error.code === 'auth/weak-password') mensaje = "La contraseña debe tener al menos 6 caracteres.";
